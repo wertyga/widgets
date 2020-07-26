@@ -1,0 +1,19 @@
+.w-widgets .w-inp {
+  padding: .5rem 1rem;
+  width: 100%;
+  border-radius: 2px;
+  border: 1px #dedede solid;
+  outline: none;
+}
+.w-widgets .w-inp::placeholder {
+  color: #333333;
+  font-size: .8rem;
+}
+.w-widgets textarea.w-inp {
+  resize: none;
+  height: 5rem;
+}
+.w-widgets .w-inp-er {
+  font-size: .8rem;
+  color: red;
+}

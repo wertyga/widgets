@@ -1,0 +1,17 @@
+.w-widgets .w-rv-tr__cr {
+  font-size: 1.5rem;
+  color: var(--star-color);
+}
+.w-widgets .w-rv-tr__ls {
+  color: var(--star-color);
+  font-size: .8rem;
+}
+
+.w-widgets .w-rv-tr__tr {
+  border-left: 1px solid rgba(0, 0, 0, 0.25);
+  padding-left: 1rem;
+}
+.w-widgets .w-rv-tr__tr span {
+  font-size: .8rem;
+  color: grey;
+}

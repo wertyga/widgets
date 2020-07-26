@@ -1,0 +1,24 @@
+.w-sr {
+  /*width: 8rem;*/
+}
+
+.w-sr .w-sr-si {
+  cursor: pointer;
+  margin-right: .5rem;
+}
+.w-sr .w-sr-si:last-child {
+  margin-right: 0;
+}
+.w-sr .w-sr-si.disabled {
+  cursor: default;
+}
+.w-sr .w-sr-si svg {
+  transition: transform .3s;
+}
+.w-sr .w-sr-si.filled svg {
+  transform: scale(1.2);
+}
+.w-sr-er {
+  color: red;
+  font-size: .8rem;
+}

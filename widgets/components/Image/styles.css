@@ -1,0 +1,46 @@
+.w-widgets .zoom > img {
+  cursor: pointer;
+  width: 100%;
+}
+.w-widgets .zi {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00000038;
+  z-index: 5;
+}
+.w-widgets .zi__c {
+  position: relative;
+  width: 80vw;
+  height: 80vh;
+}
+.w-widgets .zi__c img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.w-widgets .zi__ci {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  top: -.5rem;
+  right: -.5rem;
+  z-index: 2;
+}
+.w-widgets .zi__ci span {
+  margin-bottom: 1px;
+}

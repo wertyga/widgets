@@ -1,0 +1,29 @@
+.w-widgets img.avatar {
+  border-radius: 50%;
+}
+
+.w-widgets .w-rf-wr.mobile .w-rf-h {
+  display: flex;
+  flex-direction: column;
+}
+.w-widgets .w-rf-wr.mobile .w-rf__lay-rv-btn {
+  width: 100%;
+  margin-top: 1rem;
+}
+.w-widgets .w-rf-wr.mobile .w-rf__lay-rv-btn button {
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .w-widgets .w-rf-wr .w-rf-h {
+    display: flex;
+    flex-direction: column;
+  }
+  .w-widgets .w-rf-wr .w-rf__lay-rv-btn {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  .w-widgets .w-rf-wr .w-rf__lay-rv-btn button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,9 @@
+export { StarIcon } from './star';
+export { FilledStarIcon } from './filledStar';
+export { HalfFilledStartIcon } from './halfFilledStar';
+export { PencilIcon } from './pencil';
+export { PhotoIcon } from './Photo';
+export { Like } from './like';
+export { Dislike } from './dislike';
+export { Comment } from './Comment';
+export { Carret } from './Carret';

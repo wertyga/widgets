@@ -1,0 +1,55 @@
+.w-widgets .w-rv-md {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .3);
+  display: flex;
+  justify-content: center;
+  padding-top: 3rem;
+  align-items: center;
+  z-index: 10;
+}
+@media (max-width: 400px) {
+  .w-widgets .w-rv-md {
+    padding-top: 1rem;
+  }
+}
+
+.w-widgets .w-rv-md__sr p {
+  margin: 0 0 1rem 0;
+}
+
+.w-widgets .w-rv-md__c {
+  background-color: #fff;
+  padding: 1rem;
+  width: 80%;
+  max-width: 50rem;
+  position: relative;
+  border-radius: 5px;
+}
+.w-widgets .w-rv-md__c.w-loading:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, .5);
+  z-index: 5;
+}
+
+.w-widgets .w-rv-md-ci {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+.w-widgets .w-rv-md-ints input {
+  max-width: 30rem;
+}
+
+.w-widgets .w-rv-md-er {
+  color: red;
+}

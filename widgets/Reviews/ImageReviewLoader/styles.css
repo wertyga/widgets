@@ -1,0 +1,21 @@
+.w-widgets .w-rv-img-upl {
+  display: flex;
+  max-width: 30rem;
+  justify-content: flex-end;
+  margin-top: .5rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+}
+.w-widgets .w-rv-img-upl input {
+  display: none;
+}
+.w-widgets .w-rv-img-upl label svg {
+  cursor: pointer;
+}
+.w-widgets .w-rv-img-upl__er-wr {
+  font-size: .8rem;
+  color: red;
+  margin-right: .5rem;
+}

@@ -1,0 +1,9 @@
+.w-widgets .w-rv-img-upled__i {
+  width: 20%;
+}
+.w-widgets .w-rv-img-upled__cl-ic {
+  position: absolute;
+  top: -.5rem;
+  right: -.5rem;
+  cursor: pointer;
+}
