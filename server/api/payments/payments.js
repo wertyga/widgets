@@ -1,5 +1,5 @@
 import express from 'express';
-import { checkClientCredentials } from 'server/middlewares';
+import { checkClientCredentials } from '../admin/client/node_modules/server/middlewares';
 import { noValidDataError, permissionDeniedError } from 'server/utils';
 import { Payment, Client } from 'server/models';
 import { yandexAuth } from './helpers';

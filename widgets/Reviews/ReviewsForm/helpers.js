@@ -1,11 +1,9 @@
-// export const sort = (items, key, direction) => {
-//   switch(key) {
-//     case('byDate'):
-//       return items.sort((a, b) => new Date(a.createdAt) > new Date(b.createdAt) ? direction : -direction);
-//     case('byRating'):
-//       return items.sort((a, b) => a.rating > b.rating ? direction : -direction);
-//
-//     default:
-//       return items;
-//   }
-// };
+import { gfMessages } from '../goldfish';
+
+const AFTER_LOAD_CLOSE_TIME = 3000;
+
+export const getAfterSaveMessage = (review, lang) => {
+  return !review.allowed && review.preEdit && gfMessages.preEdit[lang];
+};
+export const closeModalTime = (message) => message ? AFTER_LOAD_CLOSE_TIME : 0;
+

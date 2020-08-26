@@ -6,43 +6,50 @@ import parseFormData from 'parse-formdata';
 
 import _isEmpty from 'lodash/isEmpty';
 
-import { Review, ReviewLegend } from '../../models';
+import { Review } from '../../models';
 import { config, gfErrors } from '../../config';
 
 const REQUIRE_FIELDS = ['user', 'advantages', 'disAdvantages', 'href', 'rating'];
-export const REVIEWS_LIMIT = 3;
+export const REVIEWS_LIMIT = 10;
 
-const getUploadPath = (client, domain, filename) => (
-  path.join(`${config.uploads.uploadPath}/reviews`, `${String(client._id)}/${String(domain._id)}${filename ? `/${filename}` : ''}`)
+export const getUploadPath = (client, prefix, filename) => (
+  path.join(`${config.uploads.uploadPath}/reviews`, `${String(client._id)}/${String(prefix)}${filename ? `/${filename}` : ''}`)
 );
 const createUploadDirectory = (client, domain) => {
   const uploadDirectory = getUploadPath(client, domain);
   shell.mkdir('-p', uploadDirectory);
 };
 
-export const getCommonRating = async (fixed, href) => {
-  const ratings = await Review.find({ href }, 'rating');
-  if (!ratings.length) return '0';
+export const calculateCommonRating = (totalRating) => {
+  let totalCount = 0;
+  let totalSum = 0;
+  Object.entries(totalRating).forEach(([rating, count]) => {
+    totalCount += count;
+    totalSum += rating * count;
+  });
 
-  const commonRating = ratings.reduce((init, { rating }) => init + rating, 0) / ratings.length;
-
-  return fixed ? commonRating.toFixed(fixed) : commonRating;
+  return Number((totalSum / totalCount).toFixed(1)) || 0;
 };
 
-const saveReview = async (data) => {
-  const review = await Review.saveWithUpdate(data);
-  const commonRating = await getCommonRating(1, data.href);
-  return {
-    review,
-    commonRating,
+export const calculateTotalRating = (reviews) => {
+  const defaultRating = {
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
   };
+  return reviews.reduce((init, { rating }) => ({
+    ...init,
+    [rating]: (init.rating || 0) + 1,
+  }), defaultRating)
 };
 
 const saveReviewImages = async (files, client, review) => {
   const filePath = files.map(file => {
     const ext = file.mimetype.split('/')[1];
     const filename = `${shortID.generate()}.${ext}`;
-    return getUploadPath(client, review, filename);
+    return getUploadPath(client, review._id, filename);
   });
 
   createUploadDirectory(client, review);
@@ -78,25 +85,36 @@ export const uploadReview = ({ req, res }) => {
       const { isValid, errors, data: fields } = checkRequireFields(data.fields, lang);
       if (!isValid) return res.status(400).json(errors);
 
-      const { review, commonRating } = await saveReview({ ...fields, owner: client._id });
-      review.images = await saveReviewImages(data.parts, client, review);
-      const [updatedReview, totalCount, totalRating] = await Promise.all([
+      const { origin, settings: { reviews: { preEdit } = {} } = {} } = req.userDomain;
+      const review = await new Review({ 
+          ...fields, 
+          images: reviewImages,
+          owner: client._id, 
+          origin,
+          allowed: !preEdit,
+       }).save();
+      const reviewImages = await saveReviewImages(data.parts, client, review);
+      review.images = reviewImages;
+
+      const [reviews, updatedreview] = await Promise.all([
+        Review.find({ href: review.href, allowed: true }, 'rating'),
         review.save(),
-        Review.find({ href: review.href }).count(),
-        ReviewLegend.findRating(review.href, review.rating),
       ]);
 
+      const totalRating = calculateTotalRating(reviews);
       res.json({
         review: {
-          ...updatedReview._doc,
-          like: updatedReview.like.length,
-          dislike: updatedReview.dislike.length,
-          commonRating,
+          ...updatedreview.responseKeys,
+          like: updatedreview.like.length,
+          dislike: updatedreview.dislike.length,
+          commonRating: calculateCommonRating(totalRating),
+          preEdit,
         },
-        totalCount,
+        totalCount: reviews.length,
         totalRating,
       });
     } catch (e) {
+      console.log(e)
       res.status(e.status || 500).json({ global: e.message });
     }
   })

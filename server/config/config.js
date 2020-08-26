@@ -1,4 +1,5 @@
 const path = require('path');
+const envs = require('../../webpack/envs');
 
 const dbName = 'widgets';
 
@@ -6,6 +7,7 @@ const config = {
   hash: {
     secret: 'Booom!!',
   },
+  serverAddress: process.env !== 'production' ? `http://localhost:${envs.PORT}` : `http://localhost:${envs.PORT}`,
   mongoose: {
     uri: `mongodb://localhost/${dbName}`,
   },

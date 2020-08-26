@@ -43,6 +43,7 @@ server.post('/main', async ({ body: { ids }, headers }, res) => {
     res.set({ 'Cache-Control': 'max-age=2592000' });
     res.json({ scripts, css });
   } catch (e) {
+    console.log(e)
     res.status(e.status || 500).json({ global: e.message });
   }
 });

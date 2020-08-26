@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState, memo } from 'react';
 import classnames from 'classnames';
 
-import { fetchSubReview } from 'widgets/api/reviews';
+import { fetchReviews } from 'widgets/api/reviews';
 
 import { ReviewModal } from '../ReviewModal/ReviewModal';
 import { TotalReviews } from '../TotalReviews/TotalReviews';
@@ -11,9 +11,8 @@ import { ReviewLoadMore } from '../ReviewLoadMore/ReviewLoadMore';
 import { Button } from '../../components';
 import { PencilIcon } from '../../components/Icons';
 
-import { fetchReviews } from 'widgets/api/reviews';
-
-import { btn } from '../../config/lang';
+import {btn, gfTotalReviews } from '../../config/lang';
+import { getAfterSaveMessage, closeModalTime } from './helpers';
 
 import './styles.css';
 
@@ -34,20 +33,25 @@ export const ReviewsForm = memo(({ lang, user }) => {
     pending: false,
     error: '',
     mobile: document.querySelector('[w-data="reviews"]').offsetWidth <= MOBILE_WIDTH,
+    message: '',
   });
 
   const modalOpen = () => setModal(true);
   const modalClose = () => setModal(false);
 
   const onSubmit = ({ review, totalCount, totalRating }) => {
+    const afterLoadMessage = getAfterSaveMessage(review, lang);
     setState(prev => ({
       ...prev,
-      reviews: [review, ...prev.reviews],
+      reviews: !review.allowed ? prev.reviews : [review, ...prev.reviews],
       commonRating: review.commonRating,
       totalCount: totalCount,
       totalRating: { ...prev.totalRating, ...totalRating },
+      message: afterLoadMessage,
     }));
-    modalClose();
+    setTimeout(() => {
+      modalClose();
+    }, closeModalTime(afterLoadMessage));
   };
 
   const getReviews = async () => {
@@ -108,11 +112,13 @@ export const ReviewsForm = memo(({ lang, user }) => {
       </div>
 
       {state.error && <span className="error">{state.error}</span>}
+      {!state.totalCount && <p className="ma-0 w-100 ta-c">{gfTotalReviews.empty[lang]}</p>}
 
       {modalOpened &&
         <ReviewModal
           onClose={modalClose}
           onSubmit={onSubmit}
+          message={state.message}
           user={user}
           lang={lang}
         />

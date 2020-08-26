@@ -8,7 +8,8 @@ export const ReviewItemImages = ({ images }) => {
       {images.map(path => (
         <Image
           className="w-rv-lti__img pa-2"
-          key={path} src={`${config.serverUrl}${path}`}
+          key={path}
+          src={path}
           zoom
         />
       ))}

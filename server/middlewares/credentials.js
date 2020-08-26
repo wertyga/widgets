@@ -9,10 +9,11 @@ export const reviewCredentials = async (req, res, next) => {
     const defaultLang = getDefaultLang(req.headers);
     if (!domainToken) throw permissionDeniedError(defaultLang);
 
-    const { isValid, client, lang } = await checkCredentialsForMain(req.headers, [config.services.reviews]);
+    const { isValid, client, lang, domain } = await checkCredentialsForMain(req.headers, [config.services.reviews]);
     if (!isValid) throw error;
-
+  
     req.client = client;
+    req.userDomain = domain;
     req.lang = lang;
     next();
   } catch (e) {
@@ -27,6 +28,7 @@ export const checkClientCredentials = async (req, res, next) => {
     if (!clientToken) throw noValidDataError(lang);
 
     const client = await Client.findOne({ token: clientToken  });
+  
     if (!client) throw noValidDataError(lang);
 
     req.client = client;
@@ -39,14 +41,14 @@ export const checkClientCredentials = async (req, res, next) => {
 export const isClientOwnerDomain = async (req, res, next) => {
   const { 
     client, 
-    body: { id, domainId, _id },
+    body: { domainId, _id, id },
     query: { lang },
   } = req;
   if (!client) {
     const { status, message } = permissionDeniedError(lang);
     return res.status(status).json({ message });
   }
-  const currentDomainId = id || domainId || _id;
+  const currentDomainId = domainId || _id || id;
   const userDomain = await Domain.findOne({ owner: client._id, _id: currentDomainId });
   
   if (!userDomain) {

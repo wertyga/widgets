@@ -1,33 +1,35 @@
 import express from 'express';
 
-import { uploadReview, getCommonRating, REVIEWS_LIMIT } from './helpers';
-import { Review, ReviewLegend, SubReview } from '../../models';
+import { uploadReview, calculateCommonRating, calculateTotalRating, REVIEWS_LIMIT } from './helpers';
+import { Review, SubReview } from '../../models';
 import { reviewCredentials } from '../../middlewares/credentials';
 
 export const reviewRouter = express.Router();
 
 reviewRouter.get('/get', reviewCredentials, async (req, res) => {
-  const { query: { href, offset } } = req;
+  const { query: { href, offset }, userDomain } = req;
   try {
     const from = parseInt(offset);
-    const to = REVIEWS_LIMIT;
 
-    const [reviews, totalCount, totalRating] = await Promise.all([
-      Review.find({ href }).skip(from).limit(to).sort({ createdAt: -1 }).populate('subComment', ['text', 'user', 'createdAt']),
-      Review.find({ href }).count(),
-      ReviewLegend.findRating(href),
+    const fetchObj = { href };
+    if (userDomain.settings.reviews.preEdit) fetchObj.allowed = true;
+
+    const [reviews, totalCount] = await Promise.all([
+      Review.find(fetchObj).skip(from).limit(REVIEWS_LIMIT).sort({ createdAt: -1 }).populate('subComment', ['text', 'user', 'createdAt']),
+      Review.find(fetchObj).count(),
     ]);
-    const commonRating = await getCommonRating(1, href);
-    const editedTimestamp =
+    
+    const editedReviews =
       reviews.map(review => ({
-        ...review._doc,
+        ...review.responseKeys,
         like: review.like.length,
         dislike: review.dislike.length,
     }));
+    const totalRating = calculateTotalRating(reviews);
     res.json({
-      reviews: editedTimestamp,
-      commonRating,
-      totalCount: String(totalCount),
+      reviews: editedReviews,
+      commonRating: calculateCommonRating(totalRating),
+      totalCount,
       totalRating,
     });
   } catch (e) {
@@ -80,3 +82,4 @@ reviewRouter.post('/subreview', reviewCredentials, async (req, res) => {
     res.status(e.status || 500).json({ error: e.message });
   }
 });
+

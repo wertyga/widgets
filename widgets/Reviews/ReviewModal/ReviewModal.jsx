@@ -17,7 +17,7 @@ import './styles.css';
 
 const MAX_IMAGES = 5;
 
-export const ReviewModal = ({ onClose, onSubmit, user: propUser, lang }) => {
+export const ReviewModal = ({ onClose, onSubmit, user: propUser, lang, message }) => {
   const [state, setState] = useState({
     advantages: '',
     disAdvantages: '',
@@ -43,14 +43,14 @@ export const ReviewModal = ({ onClose, onSubmit, user: propUser, lang }) => {
     const { href, origin } = window.location;
 
     try {
-      setState({ ...state, loading: true, errors: {} });
+      setState(prev => ({ ...prev, loading: true, errors: {} }));
       const review = await uploadData({ ...restData, href: href.split('?')[0], origin });
 
-      setState({ ...state, loading: false });
+      setState(prev => ({ ...prev, loading: false }));
       onSubmit(review)
 
     } catch (e) {
-      setState({ ...state, loading: false, errors: e });
+      setState(prev => ({ ...prev, loading: false, errors: e }));
     }
   }
 
@@ -83,6 +83,7 @@ export const ReviewModal = ({ onClose, onSubmit, user: propUser, lang }) => {
       <div className={classnames('w-rv-md__c', { 'w-loading': loading })}>
 
         {stateErrors.global && <span className="error">{stateErrors.global}</span>}
+        {message && <p className="w-100 ta-c font-light">{message}</p>}
 
         <div className="mb-4">
           <p>{common.value[lang]}</p>

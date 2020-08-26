@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-
-import { ReviewLegend } from './reviweLegend';
+import { config } from '../config';
 
 const reviewSchema = new mongoose.Schema({
   advantages: {
@@ -45,6 +44,9 @@ const reviewSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  allowed: {
+    type: Boolean,
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'client',
@@ -58,19 +60,13 @@ const reviewSchema = new mongoose.Schema({
 reviewSchema.virtual('responseKeys')
   .get(function() {
     const { owner, ...rest } = this._doc;
-    return rest;
+    return {
+      ...rest,
+      like: rest.like.length,
+      dislike: rest.dislike.length,
+      images: rest.images.map(image => `${config.serverAddress}${image}`),
+    };
   })
   .set(function() { return });
-
-reviewSchema.statics.saveWithUpdate = async function(data) {
-  const savedReview = await new Review(data).save();
-  await ReviewLegend.findOneAndUpdate({
-    href: data.href,
-    rating: data.rating,
-    origin: data.origin,
-  }, { $inc: { count: 1 } }, { upsert: true });
-
-  return savedReview;
-};
 
 export const Review = mongoose.model('review', reviewSchema);
