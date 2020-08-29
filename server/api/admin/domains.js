@@ -4,11 +4,11 @@ import { checkClientCredentials, isClientOwnerDomain } from 'server/middlewares'
 import { noValidDataError, clearDomain, permissionDeniedError } from 'server/utils';
 import { Domain } from 'server/models';
 import { gfErrors } from 'server/config';
-import { getFavicon } from './helpers';
+import { getFavicon } from '../helpers';
 
-export const domainsRouter = express.Router();
+export const adminDomainsRouter = express.Router();
 
-domainsRouter.get('/', checkClientCredentials, async (req, res) => {
+adminDomainsRouter.get('/', checkClientCredentials, async (req, res) => {
   const { client } = req;
   try {
     const clientDomains = await Domain.find({ owner: client._id });
@@ -19,7 +19,7 @@ domainsRouter.get('/', checkClientCredentials, async (req, res) => {
   }
 });
 
-domainsRouter.post('/', checkClientCredentials, async ({ 
+adminDomainsRouter.post('/', checkClientCredentials, async ({ 
   client, 
   body: { origin, services, serviceLang, domainId },
   query: { lang },
@@ -35,19 +35,19 @@ domainsRouter.post('/', checkClientCredentials, async ({
 
     const editedOrigin = origin.trim().replace(/\/$/, '');
    if (domainId) {
-    if (
-      existDomain &&
-      clearDomain(origin) === clearDomain(existDomain.origin) &&
-      domainId !== String(existDomain._id)
-    ) {
-      throw domainExistError;
-    }
+      if (
+        existDomain &&
+        clearDomain(origin) === clearDomain(existDomain.origin) &&
+        domainId !== String(existDomain._id)
+      ) {
+        throw domainExistError;
+      }
 
-    const favicon = await getFavicon(origin);
-    await Domain.findByIdAndUpdate(
-      domainId, 
-      { $set: { origin: editedOrigin, services, lang: serviceLang, favicon } }
-    );
+      const favicon = await getFavicon(origin);
+      await Domain.findByIdAndUpdate(
+        domainId,
+        { $set: { origin: editedOrigin, services, lang: serviceLang, favicon } }
+      );
    } else {
     if (existDomain) throw domainExistError;
 
@@ -65,7 +65,7 @@ domainsRouter.post('/', checkClientCredentials, async ({
  }
 });
 
-domainsRouter.delete('/', checkClientCredentials, isClientOwnerDomain, async ({ 
+adminDomainsRouter.delete('/', checkClientCredentials, isClientOwnerDomain, async ({ 
   body: { domainId }, 
  } ,res) => {
   try {
@@ -77,7 +77,7 @@ domainsRouter.delete('/', checkClientCredentials, isClientOwnerDomain, async ({
   }
 });
 
-domainsRouter.post('/settings', checkClientCredentials, async (
+adminDomainsRouter.post('/settings', checkClientCredentials, async (
   { 
     body: { service, settings, id }, 
     query: { lang },
@@ -85,13 +85,13 @@ domainsRouter.post('/settings', checkClientCredentials, async (
   }, 
   res,
  ) => {
-   if (!service || !settings) throw noValidDataError(lang);
+  try {
+    console.log(service, settings);
+    if (!service || !settings) throw noValidDataError(lang);
 
     const domain = await Domain.findOne({ owner: client._id, _id: id });
   
-  if (!domain) throw permissionDeniedError(lang);
-
-  try {
+    if (!domain) throw permissionDeniedError(lang);
     domain.settings = {
       ...domain.settings,
       [service]: settings,

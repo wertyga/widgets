@@ -39,14 +39,14 @@ export const ReviewListItemComment = ({
   if (!isOpen) return null;
   return (
     <div className={classnames('w-rv-il__cm d-flex mb-4', { pending: comment.pending, new: !completed })}>
-      <div className="flex-column align-center mr-4 w-rv-il__ua">
+      <div className="flex-column align-center mr-8 ml-4 w-rv-il__ua">
         <UserAvatar user={currentUser} />
         <span className="font-bold font-size-md">{(currentUser || {}).name || common.anonym[lang]}</span>
       </div>
       {!completed &&
         <div className="w-100 d-flex w-rv-il__cm_new">
           <Input
-            className="w-100 mr-4 w-rv-il__int"
+            className="w-100 mr-8 w-rv-il__int"
             value={comment.value}
             onChange={handleComment}
             textarea

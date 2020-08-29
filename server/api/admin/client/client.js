@@ -1,11 +1,11 @@
 import express from 'express';
 import { noValidDataError } from 'server/utils/errors';
 import { checkClientCredentials } from 'server/middlewares';
-import { Client } from '../../models';
+import { Client } from 'server/models';
 
-export const clientRouter = express.Router();
+export const adminClientRouter = express.Router();
 
-clientRouter.post('/signup', async ({ body: { username, password, email }, query: { lang } }, res) => {
+adminClientRouter.post('/signup', async ({ body: { username, password, email }, query: { lang } }, res) => {
  try {
   const { _id, domains, username: user, email: mail, token } = await Client.saveClientWithNewToken({
     username,
@@ -24,7 +24,7 @@ clientRouter.post('/signup', async ({ body: { username, password, email }, query
  }
 });
 
-clientRouter.post('/signin', async ({ query: { lang }, body: { username, password }, }, res) => {
+adminClientRouter.post('/signin', async ({ query: { lang }, body: { username, password }, }, res) => {
   try {
     const { _id, email, username: nameuser, token } = await Client.saveClientWithNewToken({
       username,
@@ -37,7 +37,7 @@ clientRouter.post('/signin', async ({ query: { lang }, body: { username, passwor
   }
  });
 
- clientRouter.get('/', checkClientCredentials, async ({ client }, res) => {
+ adminClientRouter.get('/', checkClientCredentials, async ({ client }, res) => {
   try {
     const { _id, email, username, token } = client;
     res.json({ _id, email, username, token });
