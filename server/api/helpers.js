@@ -1,7 +1,7 @@
 import axios from 'axios';
 import cheerio from 'cheerio';
 import { permissionDeniedError } from "../utils";
-import { Domain, Client } from "../models";
+import { Domain, Client, Styles } from "../models";
 
 export const getAuthToken = (headers) => (
   headers.authorization && headers.authorization.replace('Bearer', '').trim()
@@ -34,8 +34,11 @@ export const checkCredentialsForMain = async (headers, services) => {
   const isServiceInList = domain.services.find(service => services.find(item => item === service));
   if (!isServiceInList) return { isValid: false, error: permissionDeniedError(domain.lang || defaultLang) };
 
-  const client = await Client.findById(domain.owner);
-  return { isValid: true, client, lang: domain.lang, domain };
+  const [client, styles] = await Promise.all([
+    Client.findById(domain.owner),
+    Styles.find({ domain: domain._id }),
+  ]);
+  return { isValid: true, client, lang: domain.lang, domain, styles };
 };
 
 export const getFavicon = async (url) => {
@@ -45,7 +48,7 @@ export const getFavicon = async (url) => {
       url,
     });
     const $ = cheerio.load(data);
-    const href = 
+    const href =
     $('link[rel="icon"]').attr('href') ||
     $('link[rel="shortcut icon"]').attr('href');
     const prefix = /https|http/.test(href) ? '' : url;

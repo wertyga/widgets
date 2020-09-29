@@ -53,3 +53,14 @@
 .w-widgets .w-rv-md-er {
   color: red;
 }
+
+.w-widgets .w-rv-md .w-rv__urm {
+  display: flex;
+  max-width: 30rem;
+  justify-content: flex-end;
+  margin-top: .5rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+}

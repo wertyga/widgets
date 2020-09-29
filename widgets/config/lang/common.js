@@ -19,6 +19,7 @@ export const common = {
     ru: 'Незнакомец',
   },
   name: {
+    en: 'Name',
     ru: 'Имя',
   },
   email: {

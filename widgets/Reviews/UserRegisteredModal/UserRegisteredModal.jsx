@@ -2,9 +2,9 @@ import { common } from '../../config/lang/common';
 import { config } from '../../config/config';
 import { Button } from "../../components";
 
-export const UserRegisteredModal = ({ avatar, user = {}, onPublish, lang, dropUser }) => {
+export const UserRegisteredModal = ({ user = {}, onPublish, lang, dropUser }) => {
+  const { name, avatar } = user;
   const image = avatar || `${config.serverUrl}/static/anonym.png`;
-  const { name, email } = user;
 
   return (
     <div className="justify-between">

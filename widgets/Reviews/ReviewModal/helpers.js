@@ -16,10 +16,10 @@ export const checkPublishData = (data, lang) => {
   };
 };
 
-export const checkImage = ({ size, type }, lang) => {
+export const checkImage = ({ size, type }, lang, maxSize = MAX_SIZE) => {
   const errors = {};
   if (type.indexOf('image') === -1) errors.type = configErrors.imageType[lang];
-  if (size > MAX_SIZE) errors.size = configErrors.imageSize[lang];
+  if (size > maxSize) errors.size = configErrors.imageSize[lang];
 
   return {
     isValid: _isEmpty(errors),

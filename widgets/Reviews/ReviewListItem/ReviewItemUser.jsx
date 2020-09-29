@@ -8,8 +8,8 @@ export const ReviewItemUser = ({ createdAt, rating, user = {} }) => {
       <UserAvatar className="mr-4" user={user} />
       <div>
         <div className="mb-2 w-rv-il__rv-us__cnt">
-          <span className="font-bold mr-4 font-size-md">{user.name}</span>
-          <span className="font-light">{convertedDateToSlash(createdAt)}</span>
+          <span className="font-bold mr-4 font-size-md user-name">{user.name}</span>
+          <span className="font-light comment-date">{convertedDateToSlash(createdAt)}</span>
         </div>
         <StarsReview rating={rating} disabled className="d-i-flex-i" />
       </div>

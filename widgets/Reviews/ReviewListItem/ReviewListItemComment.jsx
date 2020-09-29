@@ -53,7 +53,7 @@ export const ReviewListItemComment = ({
             placeholder={`${gfCommon.comments[lang]}...`}
             error={comment.error}
           />
-          <div>
+          <div className="w-rv-il__cm__btn-wrp">
             <Button className="mb-2" onClick={handleSubmit}>
               {common.publish[lang]}
             </Button>

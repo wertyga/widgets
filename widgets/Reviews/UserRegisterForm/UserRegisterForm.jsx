@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
-import { common, errors } from '../../config/lang';
+import { common } from '../../config/lang';
 import { config } from '../../config/config';
 
-import { userCheck } from './helpers';
+import { userCheck, getUserGravatar } from './helpers';
 
 import './styles.css';
 
@@ -21,8 +21,10 @@ export const UserRegisterForm = ({ onChange, errors: propsErrors = {}, propUser,
     const { isValid, errors } = userCheck(user, lang);
     if (!isValid) return setState({ ...state, errors });
 
-    propUser.set(user);
-    onChange(user);
+    const avatar = getUserGravatar(user.email);
+    const updatedUser = { ...user, avatar };
+    propUser.set(updatedUser);
+    onChange(updatedUser);
   };
 
   useEffect(() => {
@@ -32,7 +34,9 @@ export const UserRegisterForm = ({ onChange, errors: propsErrors = {}, propUser,
   const { name, email, errors } = state;
   return (
     <div className="w-usr-rg d-flex">
-      <img className="mr-4 avatar" src={`${config.serverUrl}/static/anonym.png`} />
+      <a href="https://gravatar.com/" target="__blank">
+        <img className="mr-4 avatar" src={`${config.serverUrl}/static/anonym.png`} />
+      </a>
 
       <div className="w-usr-rg__inf">
         <Input

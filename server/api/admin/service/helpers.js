@@ -6,7 +6,7 @@ export const getServicePages = async (service, clientID, options = {}) => {
     switch(service) {
         case(config.services.reviews) :
             return Review.find({ owner: clientID }).skip(parseInt(offset)).limit(parseInt(limit));
-        
+
         default:
             return [];
     }
@@ -27,7 +27,7 @@ export const getServiceCounts = async (service, clientID) => {
                 },
             }), {});
         }
-        
+
         default:
             return {};
     }

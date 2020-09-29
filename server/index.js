@@ -31,17 +31,12 @@ server.use('/api', api);
 
 server.post('/main', async ({ body: { ids }, headers }, res) => {
   try {
-    const { isValid, error, domain, lang } = await checkCredentialsForMain(headers, ids);
+    const { isValid, error, domain, styles, lang } = await checkCredentialsForMain(headers, ids);
     if (!isValid) throw error;
 
-    const { scripts, clearNames } = getSrcs(ids, domain._doc, lang);
-    const css = clearNames.map(service => {
-      const clearName = service.split('_')[0];
-      return process.env[`CSS_${clearName.toUpperCase()}`];
-    });
-    
+    const { scripts, css, addingStyles } = getSrcs(ids, domain._doc, lang, styles);
     res.set({ 'Cache-Control': 'max-age=2592000' });
-    res.json({ scripts, css });
+    res.json({ scripts, css, addingStyles });
   } catch (e) {
     console.log(e)
     res.status(e.status || 500).json({ global: e.message });

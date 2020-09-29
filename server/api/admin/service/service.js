@@ -1,5 +1,6 @@
 import express from 'express';
-import { checkClientCredentials } from '~/server/middlewares';
+import { checkClientCredentials } from 'server/middlewares';
+import { adminServiceStylesRouter } from './styles';
 
 import { getServiceCounts } from './helpers';
 
@@ -14,3 +15,5 @@ adminServiceRouter.get('/:service/count', checkClientCredentials, async ({ clien
     res.status(e.status || 500).json({ messsage: e.message });
   }
 });
+
+adminServiceRouter.use('/styles', adminServiceStylesRouter);

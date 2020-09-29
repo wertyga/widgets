@@ -6,6 +6,7 @@ import { gfCommon } from '../goldfish';
 
 import { uploadData } from 'widgets/api/reviews';
 
+import { PhotoIcon } from '../../components/Icons';
 import { StarsReview } from '../StarsReview/StarsReview';
 import { ModalUser } from '../ModalUser/ModalUser';
 import { ImageReviewLoader } from '../ImageReviewLoader/ImageReviewLoader';
@@ -92,7 +93,14 @@ export const ReviewModal = ({ onClose, onSubmit, user: propUser, lang, message }
         <span onClick={onClose} className="w-rv-md-ci">×</span>
 
         <div className="w-100 relative mb-4 w-rv-md-ints">
-          <ImageReviewLoader onChange={imageHandler} errors={stateErrors.image}/>
+          <ImageReviewLoader
+            onChange={imageHandler}
+            errors={stateErrors.image}
+            id="review-images"
+            className="w-rv__urm"
+          >
+            <PhotoIcon />
+          </ImageReviewLoader>
           <Input
             className="mb-4"
             value={advantages}

@@ -8,6 +8,12 @@ function injectFont() {
   document.head.appendChild(link);
 };
 
+function injectAddingStyles(addingStyles) {
+  const styleTag = document.createElement('style');
+  styleTag.innerHTML = addingStyles;
+  document.body.appendChild(styleTag);
+};
+
 function defineBootstrap () {
   window.W_widgets = {
     ...window.W_widgets,
@@ -24,9 +30,14 @@ function fetchCss(cssUrl) {
     })
 };
 
-function injectScripts({ scripts, css }) {
-  if (css) {
+function injectScripts({ scripts, css, addingStyles }) {
+  if (css && css.length) {
     Promise.all(css.map(cssUrl => fetchCss(`${config.serverUrl}/${cssUrl}`)));
+  }
+  if (addingStyles && addingStyles.length) {
+    addingStyles.forEach((styles) => {
+      injectAddingStyles(styles);
+    });
   }
 
   if (scripts) {
@@ -64,8 +75,8 @@ function bootstrap(href) {
     })
   })
     .then(response => response.json())
-    .then(({ scripts, css }) => {
-      injectScripts({ scripts, css });
+    .then(({ scripts, css, addingStyles }) => {
+      injectScripts({ scripts, css, addingStyles });
     })
     .catch(e => console.log(e));
 };

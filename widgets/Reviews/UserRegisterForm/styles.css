@@ -1,3 +1,14 @@
 .w-widgets .w-usr-rg img {
   height: 3rem;
 }
+
+.w-widgets .w-usr-rg .w-rv-img-upl {
+  position: relative;
+}
+
+.w-widgets .w-usr-rg .w-rv-img-upled__cl-ic {
+  cursor: pointer;
+  left: 0;
+  top: -1rem;
+  right: initial;
+}
