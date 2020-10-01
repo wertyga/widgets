@@ -15,6 +15,7 @@ const config = {
   services: {
     reviews: 'reviews',
     support: 'support',
+    chat: 'chat',
   },
   languages: ['ru', 'en'],
   uploads: {

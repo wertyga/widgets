@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --watchAll --env=jsdom",
+    "io-server:dev": "cross-env NODE_ENV=development nodemon --exec babel-node -- server/chatServer/index.js",
     "webpack:dev": "webpack -w --config ./webpack/webpack.config.js",
     "webpack:prod": "cross-env NODE_ENV=production webpack -p --config ./webpack/webpack.config.js",
     "generate:entries": "node webpack/generateEntriesFiles.js",
-    "server:dev": "cross-env NODE_ENV=development nodemon --watch server --watch public --exec babel-node -- server/index.js",
+    "server:dev": "cross-env NODE_ENV=development nodemon --watch server --watch public --exec babel-node -- server/index.js & npm run io-server:dev",
     "start:prod": "cross-env NODE_ENV=production node --nouse-idle-notification --expose-gc production/server/index.js",
     "test:dev": "node ./TEST/index.js"
   },
@@ -36,6 +36,8 @@
     "shell": "^0.5.0",
     "shelljs": "^0.8.4",
     "short-id": "0.1.0-1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.1",
     "w-paypal": "^1.0.3",
     "winston": "^2.3.1"
   },
