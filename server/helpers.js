@@ -122,10 +122,7 @@ export const getSrcs = (services, domain, lang, styles) => {
   const css = [];
   const addingStyles = [];
   services.forEach(service => {
-    let isDomainEnabled = true;
-    if (domain.settings[service]) {
-      isDomainEnabled = domain.settings[service].enabled;
-    }
+    const isDomainEnabled = domain.settings[service] && domain.settings[service].enabled;
     if (isDomainEnabled && domain.services.includes(service)) {
       const clearName = service.split('_')[0];
       css.push(process.env[`CSS_${clearName.toUpperCase()}`]);

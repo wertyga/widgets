@@ -42,4 +42,8 @@ export const common = {
     en: 'Roll down',
     ru: 'Свернуть',
   },
+  sendOut: {
+    en: 'Send',
+    ru: 'Отправить',
+  },
 };

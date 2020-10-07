@@ -1,0 +1,1 @@
+export { chatManager } from './chatManager';

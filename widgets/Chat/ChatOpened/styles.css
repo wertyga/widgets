@@ -1,0 +1,4 @@
+.w-widgets .w-cht__op {
+  display: flex;
+  flex-direction: column;
+}

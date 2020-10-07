@@ -153,6 +153,9 @@
 .w-widgets .font-size-lg {
   font-size: 1.3rem;
 }
+.w-widgets .c-pointer {
+  cursor: pointer;
+}
 
 .w-widgets .avatar {
   width: 3rem;
