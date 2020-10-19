@@ -1,5 +1,7 @@
 import axios from 'axios';
+import shortID from 'short-id';
 import { config } from './config/config';
+import { getCookie, setCookie } from '../utils/cookies';
 
 function injectFont() {
   const link = document.createElement('link');
@@ -15,8 +17,11 @@ function injectAddingStyles(addingStyles) {
 };
 
 function defineBootstrap () {
+  const userIDCookie = getCookie('w-userID') || shortID.generate();
+  setCookie('w-userID', userIDCookie);
   window.W_widgets = {
     ...window.W_widgets,
+    user: userIDCookie,
     bootstrap: function() { bootstrap(window.location.href) },
   };
 };

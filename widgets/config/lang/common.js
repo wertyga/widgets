@@ -1,6 +1,11 @@
 export const common = {
+  you: {
+    en: 'You',
+    ru: 'Вы',
+  },
   value: {
     ru: 'Оценка',
+    en: 'Rating',
   },
   exit: {
     ru: 'Выход',

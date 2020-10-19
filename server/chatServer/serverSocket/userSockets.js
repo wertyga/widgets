@@ -1,24 +1,37 @@
 import { getRedisKey, setRedisKey } from '../redis/initializeRedis';
+import { keys } from './helpers';
 
-export const joinToRoom = (socket) => {
-  const { token: domainToken, user } = socket.handshake.query;
-  if (!domainToken) return {};
+export const userMessage = async ({ userID, origin, message }, socket) => {
+  const key = keys.userMessageKey(userID, origin);
+  const oldMessages = await getRedisKey(key);
+  await setRedisKey(key, [...(oldMessages || []), { user: true, message }]);
 
-  socket.join(domainToken);
-  socket.userId = user;
-  return { room: domainToken, user };
+  socket.to(origin).emit('user_message', { userID, origin, message: { user: true, message }});
 };
 
-export const userMessage = async ({ domainToken, message, user }, room, socket) => {
-  if (!room) return;
+export const userConnect = async ({ origin, userID }, socket) => {
+  const key = keys.connectedUsers(origin);
+  socket.userID = userID;
+  const connectedUsers = await getRedisKey(key);
+  await setRedisKey(key, [
+    ...(connectedUsers || []).filter(item => item.userID !== userID),
+    { userID, socketID: socket.id },
+  ]);
 
-  const oldMessages = await getRedisKey(user);
+  socket.to(origin).emit('user_connect', { socketID: socket.id, userID, origin });
+};
 
-  const allMessages = [
-    ...(oldMessages || []),
-    { client: true, message },
-  ];
+export const userDisconnect = async ({ origin, userID }, socket) => {
+  const key = keys.connectedUsers(origin);
+  const connectedUsers = await getRedisKey(key);
+  await setRedisKey(key, connectedUsers.filter(item => item.userID !== userID));
 
-  await setRedisKey(user, allMessages);
-  socket.to(room).emit('user_messages', { user, messages: allMessages });
+  socket.to(origin).emit('user_disconnected', { origin, userID });
+};
+
+export const getUserMessages = async ({ userID, origin }, socket) => {
+  const key = keys.userMessageKey(userID, origin);
+  const oldMessages = await getRedisKey(key);
+
+  socket.emit('user_messages', { userID, origin, messages: oldMessages });
 };

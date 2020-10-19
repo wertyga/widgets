@@ -14,15 +14,20 @@ export const ChatForm = ({ lang }) => {
   };
 
   useEffect(() => {
+    const { origin, user } = window.W_widgets;
+    socket.on('connect', () => {
+      console.log('socket connect');
+      socket.emit('user_connect', { userID: user, origin });
+    });
+    socket.on('disconnect', () => {
+      console.log('socket disconnected');
+    });
+  }, []);
+
+  useEffect(() => {
     if (state.isOpen) {
-      socket.on('connect', () => {
-        setState(prev => ({ ...prev, isConnected: true }));
-      });
       socket.open();
     } else {
-      socket.on('disconnect', () => {
-        setState(prev => ({ ...prev, isConnected: false }));
-      });
       socket.close();
     }
   }, [state.isOpen]);

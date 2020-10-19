@@ -1,0 +1,32 @@
+.w-widgets .cht-mf-in {
+  height: 50vh;
+  max-height: 30rem;
+  overflow-y: auto;
+  border: 1px solid var(--color-grey-1);
+}
+
+.w-widgets .cht-mf-in .cht-msg {
+  display: flex;
+  width: 100%;
+}
+.w-widgets .cht-mf-in .cht-msg:hover .cht-msg__icns {
+  display: flex;
+}
+
+.w-widgets .cht-mf-in .cht-msg__user {
+  justify-content: flex-end;
+}
+
+.w-widgets .cht-msg .cht-msg__msg {
+  font-size: 0.8rem;
+}
+
+.w-widgets .cht-msg__icns {
+  display: none;
+}
+.w-widgets .cht-msg__icns svg path {
+  fill: var(--color-grey-1);
+}
+.w-widgets .cht-msg__icns svg:hover path {
+  fill: #000;
+}
