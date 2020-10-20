@@ -35,3 +35,9 @@ export const getUserMessages = async ({ userID, origin }, socket) => {
 
   socket.emit('user_messages', { userID, origin, messages: oldMessages });
 };
+
+export const getAdminConnected = async ({ userID, origin }, socket, io) => {
+  const { sockets } = io.sockets.adapter.rooms[origin] || { sockets: {} };
+  const adminsSocketID = Object.keys(sockets);
+  socket.emit(`admin_connected_${origin}`, adminsSocketID);
+};

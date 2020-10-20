@@ -2,7 +2,7 @@
   height: 50vh;
   max-height: 30rem;
   overflow-y: auto;
-  border: 1px solid var(--color-grey-1);
+  /*border: 1px solid var(--color-grey-1);*/
 }
 
 .w-widgets .cht-mf-in .cht-msg {

@@ -1,6 +1,8 @@
 :root {
   --star-color: #ff7d02;
   --color-grey-1: #dedede;
+  --color-green: #019a38;
+  --color-green-light: #00dc4f;
 }
 
 .w-widgets {
@@ -112,7 +114,7 @@
   padding-bottom: .5rem;
 }
 .w-widgets .pb-4 {
-  padding-bottom: 4rem;
+  padding-bottom: 1rem;
 }
 .w-widgets .pr-2 {
   padding-right: .5rem;
@@ -128,6 +130,12 @@
 }
 .w-widgets .pa-4 {
   padding: 1rem;
+}
+.w-widgets .pt-4 {
+  padding-top: 1rem;
+}
+.w-widgets .pt-2 {
+  padding-top: 0.5rem;
 }
 .w-widgets .pa-2 {
   padding: .5rem;

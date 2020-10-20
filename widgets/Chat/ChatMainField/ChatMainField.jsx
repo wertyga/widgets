@@ -72,7 +72,7 @@ export const ChatMainField = ({ lang }) => {
 
   const { managerName } = getChatMeta();
   return (
-    <div className="pl-2 pr-2 mb-2">
+    <div className="pl-4 pr-4 mb-2">
       <div className="cht-mf-in mb-4 pa-2" ref={messagesRef}>
         {messages.map(({ message, user }, i) => {
           const name = user ? common.you[lang] : managerName;
@@ -92,8 +92,8 @@ export const ChatMainField = ({ lang }) => {
                 </div>
               }
               <div className="flex-column">
-                <span className="font-light">{`${name}:`}</span>
-                <span className="cht-msg__msg">{message}</span>
+                <span className={classnames('font-light', { 'justify-end': user })}>{`${name}:`}</span>
+                <span className={classnames('cht-msg__msg', { 'justify-end': user })}>{message}</span>
               </div>
             </div>
           )

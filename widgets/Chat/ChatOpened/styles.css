@@ -1,4 +1,14 @@
-.w-widgets .w-cht__op {
+.w-widgets .w-cht-op {
   display: flex;
   flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 25rem;
+  max-width: 87vw;
+}
+
+.w-widgets .w-cht-op__h {
+  background: linear-gradient(to right, #019a38, #00dc4f);
+  color: #fff;
 }

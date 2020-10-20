@@ -1,19 +1,21 @@
-import { UserAvatar } from '../../components/UserAvatar/UserAvatar';
 import { chatManager } from '../goldfish';
+import { UserAvatar } from '../../components/UserAvatar/UserAvatar';
+import { config } from 'widgets/config/config';
 
 import './styles.css';
 
-export const ChatManagerHeader = ({ lang }) => {
-  const {
-    managerName = 'Jim',
-    managerDescription = chatManager.mangerDefaultDescription[lang],
-    managerAvatar,
-    online,
-  } = window.W_widgets.chat || {};
+const MANAGER_MOCK = (lang) => ({
+  managerName: 'Jim',
+  managerDescription: chatManager.mangerDefaultDescription[lang],
+  managerAvatar: `${config.serverUrl}/static/b4b.jpg`,
+});
+
+export const ChatManagerHeader = ({ lang, admins }) => {
+  const { managerName, managerDescription, managerAvatar } = MANAGER_MOCK(lang);
   return (
-    <div className="w-cht-mh pa-2 d-flex align-center">
-      <div className="mr-4">
-        {online && <span className="w-cht-mh__online"/>}
+    <div className="w-cht-mh pt-2 pb-4 pl-4 pr-4 d-flex align-center">
+      <div className="mr-4 w-cht-mh__ava">
+        {!!admins.length && <span className="w-cht-mh__online"/>}
         <UserAvatar user={{ avatar: managerAvatar }}/>
       </div>
       <div className="flex-column">

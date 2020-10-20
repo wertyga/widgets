@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Button, Input } from "widgets/components";
 import { common } from "widgets/config/lang";
+import { Carret } from 'widgets/components/Icons/Carret';
 
+import './styles.css';
 
 export const ChatInputField = ({ lang, onMessage, editValue }) => {
   const [value, setValue] = useState('');
@@ -24,10 +26,17 @@ export const ChatInputField = ({ lang, onMessage, editValue }) => {
         onChange={onChange}
         className="mb-4"
         textarea
+        style={{
+          borderLeft: 'none',
+          borderRight: 'none',
+          borderBottom: 'none',
+        }}
       />
-      <Button onClick={onSend}>
-        {common.sendOut[lang]}
-      </Button>
+      <div onClick={onSend} className="cht-inf__btn">
+        <Carret
+
+        />
+      </div>
     </div>
   );
 };

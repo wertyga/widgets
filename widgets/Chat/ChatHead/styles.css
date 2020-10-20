@@ -1,6 +1,11 @@
 .w-widgets .w-cht-h {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*justify-content: space-between;*/
 }
+
+/*.w-widgets .w-cht-h .close:after {*/
+/*  content: '&#x274C;';*/
+/*  display: block;*/
+/*}*/

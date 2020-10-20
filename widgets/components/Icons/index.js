@@ -8,3 +8,4 @@ export { Dislike } from './dislike';
 export { Comment } from './Comment';
 export { Carret } from './Carret';
 export { TrashIcon } from './TrashIcon';
+export { MessageIcon } from './MessageIcon';

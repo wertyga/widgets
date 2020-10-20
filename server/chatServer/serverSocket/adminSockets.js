@@ -25,8 +25,21 @@ export const getConnectedUsers = async (origins = [], socket) => {
   socket.emit('connected_users', connectedUsers);
 };
 
-export const adminConnect = (origins, socket) => {
-  origins.forEach(origin => socket.join(origin));
+export const adminConnect = (origins, socket, io) => {
+  origins.forEach((origin) => {
+    socket.join(origin);
+    const { sockets } = io.sockets.adapter.rooms[origin] || { sockets: {} };
+    const adminsSocketID = Object.keys(sockets);
+    socket.broadcast.emit(`admin_connected_${origin}`, adminsSocketID);
+  });
+};
+
+export const adminDisconnected = (origins, socket, io) => {
+  origins.forEach((origin) => {
+    const { sockets } = io.sockets.adapter.rooms[origin] || { sockets: {} };
+    const adminsSocketID = Object.keys(sockets);
+    socket.broadcast.emit(`admin_connected_${origin}`, adminsSocketID);
+  });
 };
 
 export const adminMessage = async ({ message, socketID, origin, userID }, socket) => {

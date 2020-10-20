@@ -3,6 +3,21 @@
 }
 
 .w-widgets .w-cht-mh .avatar {
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
+}
+
+.w-widgets .w-cht-mh__ava {
+  position: relative;
+}
+
+.w-widgets .w-cht-mh__online {
+  position: absolute;
+  width: .7rem;
+  height: .7rem;
+  bottom: 0.1rem;
+  right: -0.3rem;
+  background-color: var(--color-green);
+  border: 1px solid #ffffff;
+  border-radius: 50%;
 }
