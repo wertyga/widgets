@@ -12,11 +12,11 @@ import { config, gfErrors } from '../../config';
 const REQUIRE_FIELDS = ['user', 'advantages', 'disAdvantages', 'href', 'rating'];
 export const REVIEWS_LIMIT = 10;
 
-export const getUploadPath = (client, prefix, filename) => (
+export const getUploadPath = (client, filename, prefix = '') => (
   path.join(`${config.uploads.uploadPath}/reviews`, `${String(client._id)}/${String(prefix)}${filename ? `/${filename}` : ''}`)
 );
 const createUploadDirectory = (client, domain) => {
-  const uploadDirectory = getUploadPath(client, domain);
+  const uploadDirectory = getUploadPath(client, domain._id);
   shell.mkdir('-p', uploadDirectory);
 };
 
@@ -46,20 +46,26 @@ export const calculateTotalRating = (reviews) => {
 };
 
 const saveReviewImages = async (files, client, review) => {
-  const filePath = files.map(file => {
-    const ext = file.mimetype.split('/')[1];
-    const filename = `${shortID.generate()}.${ext}`;
-    return getUploadPath(client, review._id, filename);
-  });
+  try {
+    const filePath = files.map(file => {
+      const ext = file.mimetype.split('/')[1];
+      const filename = `${shortID.generate()}.${ext}`;
+      return getUploadPath(client, filename, review._id);
+    });
 
-  createUploadDirectory(client, review);
+    if (filePath.length) {
+      createUploadDirectory(client, review);
+      await Promise.all(filePath.map((uploadPath, i) => {
+        const ws = fs.createWriteStream(uploadPath);
+        files[i].stream.pipe(ws);
+      }));
+    }
 
-  await Promise.all(filePath.map((uploadPath, i) => {
-    const ws = fs.createWriteStream(uploadPath);
-    files[i].stream.pipe(ws);
-  }));
-
-  return filePath.map(item => item.replace(config.uploads.uploadPath, ''));
+    return filePath.map(item => item.replace(config.uploads.uploadPath, ''));
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
 };
 
 const checkRequireFields = (fields, lang) => {
@@ -86,19 +92,17 @@ export const uploadReview = ({ req, res }) => {
       if (!isValid) return res.status(400).json(errors);
 
       const { origin, settings: { reviews: { preEdit } = {} } = {} } = req.userDomain;
-      const review = await new Review({ 
-          ...fields, 
-          images: reviewImages,
-          owner: client._id, 
+      const review = await new Review({
+          ...fields,
+          owner: client._id,
           origin,
           allowed: !preEdit,
        }).save();
-      const reviewImages = await saveReviewImages(data.parts, client, review);
-      review.images = reviewImages;
+      review.images = await saveReviewImages(data.parts, client, review);
 
       const [reviews, updatedreview] = await Promise.all([
         Review.find({ href: review.href, allowed: true }, 'rating'),
-        review.save(),
+        !!review.images.length ? review.save() : review,
       ]);
 
       const totalRating = calculateTotalRating(reviews);

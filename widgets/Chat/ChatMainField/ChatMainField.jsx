@@ -92,8 +92,8 @@ export const ChatMainField = ({ lang }) => {
                 </div>
               }
               <div className="flex-column">
-                <span className={classnames('font-light', { 'justify-end': user })}>{`${name}:`}</span>
-                <span className={classnames('cht-msg__msg', { 'justify-end': user })}>{message}</span>
+                <span className={classnames('font-light mb-2', { 'justify-end': user })}>{`${name}`}</span>
+                <span className={classnames('cht-msg__msg', { 'justify-end user': user })}>{message}</span>
               </div>
             </div>
           )

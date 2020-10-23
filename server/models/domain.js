@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import _isEmpty from 'lodash/isEmpty';
+import { gfServerSettings } from '../goldfish';
 import { generateHash } from './helpers';
 
 const domainSchema = new mongoose.Schema({
@@ -11,7 +13,7 @@ const domainSchema = new mongoose.Schema({
         require: true,
       },
     token: {
-      type: String,  
+      type: String,
     },
     lang: {
       type: String,
@@ -21,14 +23,14 @@ const domainSchema = new mongoose.Schema({
        type: String,
     },
     services: [
-      { 
+      {
         type: String,
         require: true,
        },
     ],
     settings: {
       type: Object,
-      default: {}, 
+      default: {},
     },
 });
 
@@ -48,5 +50,12 @@ domainSchema.statics.saveWithToken = async function(data) {
   const token = `${generateHash(String(data.owner))}.${generateHash(data.origin)}`;
   return this({ ...data, token }).save();
 };
+
+domainSchema.pre('save', function(next) {
+  if (_isEmpty(this.settings)) {
+    this.settings = gfServerSettings.defaultSettings;
+  }
+  next();
+});
 
 export const Domain = mongoose.model('domain', domainSchema);

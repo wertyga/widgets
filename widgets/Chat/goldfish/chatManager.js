@@ -7,5 +7,9 @@ export const chatManager = {
     en: 'Do you have any questions?',
     ru: 'Задайте нам вапрос',
   },
+  typing: {
+    en: 'typing...',
+    ru: 'печатает...',
+  },
 };
 

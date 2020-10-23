@@ -41,3 +41,7 @@ export const getAdminConnected = async ({ userID, origin }, socket, io) => {
   const adminsSocketID = Object.keys(sockets);
   socket.emit(`admin_connected_${origin}`, adminsSocketID);
 };
+
+export const userActive = ({ userID, origin, active }, socket) => {
+  socket.to(origin).emit('user_activity', { userID, origin, active });
+};

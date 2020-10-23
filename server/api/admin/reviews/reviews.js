@@ -41,7 +41,7 @@ adminReviewsRouter.post(
         { $set: { allowed: !allowed }},
         { new: true },
       ).populate('subComment');
-  
+
       res.json(updatedReview.responseKeys);
     } catch (e) {
       res.status(e.status || 500).json({ error: e.message });
@@ -55,7 +55,7 @@ adminReviewsRouter.delete('/', checkClientCredentials, async (req, res) => {
 
     await Promise.all([
       Review.findByIdAndRemove(review),
-      shell.rm('-rf', getUploadPath(client, review )),
+      shell.rm('-rf', getUploadPath(client, review)),
     ])
 
     res.json({ success: true });

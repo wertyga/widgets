@@ -2,6 +2,10 @@
   position: relative;
 }
 
+.w-widgets .cht-inf .w-inp {
+  border-top-color: var(--color-green);
+}
+
 .w-widgets .cht-inf__btn {
   position: absolute;
   top: 1.8rem;

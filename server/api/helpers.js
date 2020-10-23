@@ -10,7 +10,7 @@ export const getDefaultLang = (headers) => (
   headers['accept-language'] && headers['accept-language'].split(',')[0].split('-')[0]
 );
 
-export const checkCredentialsForMain = async (headers, services) => {
+export const checkCredentialsForMain = async (headers, services, withStyles) => {
   const { authorization, origin } = headers;
   const defaultLang = getDefaultLang(headers);
   const error = permissionDeniedError(defaultLang);
@@ -36,7 +36,7 @@ export const checkCredentialsForMain = async (headers, services) => {
 
   const [client, styles] = await Promise.all([
     Client.findById(domain.owner),
-    Styles.find({ domain: domain._id }),
+    withStyles && Styles.find({ domain: domain._id, service: services }),
   ]);
   return { isValid: true, client, lang: domain.lang, domain, styles };
 };

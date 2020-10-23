@@ -21,3 +21,11 @@
   border: 1px solid #ffffff;
   border-radius: 50%;
 }
+
+.w-widgets .w-cht-mh__tp {
+  position: absolute;
+  bottom: -.5rem;
+  left: 0;
+  color: #ffffff;
+  font-size: .7rem;
+}

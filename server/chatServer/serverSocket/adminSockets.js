@@ -49,3 +49,7 @@ export const adminMessage = async ({ message, socketID, origin, userID }, socket
 
   socket.to(socketID).emit('admin_message', message);
 };
+
+export const adminActive = ({ socketID, active }, socket) => {
+  socket.to(socketID).emit('admin_activity', active);
+};

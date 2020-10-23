@@ -18,7 +18,7 @@ reviewRouter.get('/get', reviewCredentials, async (req, res) => {
       Review.find(fetchObj).skip(from).limit(REVIEWS_LIMIT).sort({ createdAt: -1 }).populate('subComment', ['text', 'user', 'createdAt']),
       Review.find(fetchObj).count(),
     ]);
-    
+
     const editedReviews =
       reviews.map(review => ({
         ...review.responseKeys,

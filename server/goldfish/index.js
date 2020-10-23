@@ -1,0 +1,1 @@
+export { gfServerSettings } from './domainSettings';
