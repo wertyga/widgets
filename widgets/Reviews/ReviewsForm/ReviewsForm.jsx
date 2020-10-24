@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState, memo } from 'react';
+import { useEffect, useState } from 'react';
 import classnames from 'classnames';
 
 import { fetchReviews } from 'widgets/api/reviews';
@@ -23,7 +23,7 @@ if (typeof window !== 'undefined') {
   axios.defaults.headers['Authorization'] = `Bearer ${widgetConfig.token}`;
 }
 
-export const ReviewsForm = memo(({ lang, user }) => {
+export const ReviewsForm = ({ lang, user, location = {} }) => {
   const [modalOpened, setModal] = useState(false);
   const [state, setState] = useState({
     reviews: [],
@@ -71,6 +71,7 @@ export const ReviewsForm = memo(({ lang, user }) => {
         pending: false,
       }));
     } catch (e) {
+      console.log(e);
       setState(prev => ({ ...prev, pending: false, error: e.response.data.global }));
     }
   };
@@ -88,6 +89,10 @@ export const ReviewsForm = memo(({ lang, user }) => {
   useEffect(() => {
     getReviews();
   }, []);
+
+  useEffect(() => {
+    console.log('ReviewsForm: ', location);
+  }, [location.pathname]);
 
   if (state.commonRating === false) return null;
   return (
@@ -140,4 +145,4 @@ export const ReviewsForm = memo(({ lang, user }) => {
       }
     </div>
   );
-});
+};

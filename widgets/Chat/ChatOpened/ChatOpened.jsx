@@ -6,7 +6,7 @@ import './styles.css';
 
 export const ChatOpened = ({ handleToggleOpen, lang, admins }) => {
   return (
-    <div className="w-cht-op w-100">
+    <div className="w-cht-op">
       <div className="w-cht-op__h">
         <ChatHead onClick={handleToggleOpen} />
         <ChatManagerHeader lang={lang} admins={admins} />

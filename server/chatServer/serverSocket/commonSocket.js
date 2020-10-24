@@ -7,7 +7,7 @@ export const messageEdit = async ({ userID, socketID, origin, index, value, admi
   const editedMessages = messages.map((m, i) => (
     i === index ? { ...m, message: value } : m
   ));
-  await setRedisKey(key, editedMessages);
+  await setRedisKey(key, editedMessages, true);
 
   if (admin) {
     socket.to(socketID).emit('user_messages', { messages: editedMessages });
@@ -21,7 +21,7 @@ export const messageDelete = async ({ userID, socketID, origin, index, value, ad
   const key = keys.userMessageKey(userID, origin);
   const messages = await getRedisKey(key);
   const newMessages = messages.filter((_, i) => i !== index);
-  await setRedisKey(key, newMessages);
+  await setRedisKey(key, newMessages, true);
 
   if (admin) {
     socket.to(socketID).emit('user_messages', { messages: newMessages });

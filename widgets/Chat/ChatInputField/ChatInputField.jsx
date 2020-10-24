@@ -5,7 +5,7 @@ import { socket } from '../Socket/socketEvents';
 
 import './styles.css';
 
-const TIMEOUT = 3000;
+const TIMEOUT = 2000;
 
 export class ChatInputField extends React.Component {
   state = {

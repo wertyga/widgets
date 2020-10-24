@@ -11,12 +11,18 @@ const browserConfig = {
   entry: {
     ...widgetsEntries,
     render: path.join(__dirname, '../widgets/render.js'),
+    test: path.join(__dirname, '../TEST/clientTest.js'),
   },
 
   output: {
     path: path.join(process.cwd(), 'public'),
-    publicPath:  '/',
-    filename: '[hash]_[name].js'
+    publicPath:  '',
+    filename: ({ chunk: { name } }) => {
+      if (name === 'test') return '../TEST/test_compiled.js';
+      // if (name === 'render') return '[hash]_[name].js';
+      // return '[name].js';
+      return '[hash]_[name].js';
+    },
   },
 
   mode: process.env.NODE_ENV || 'development',
@@ -27,7 +33,7 @@ const browserConfig = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          use: ['css-loader', 'sass-loader']
+          use: ['css-loader']
         })
       },
       {

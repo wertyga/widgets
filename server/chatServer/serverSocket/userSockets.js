@@ -4,7 +4,7 @@ import { keys } from './helpers';
 export const userMessage = async ({ userID, origin, message }, socket) => {
   const key = keys.userMessageKey(userID, origin);
   const oldMessages = await getRedisKey(key);
-  await setRedisKey(key, [...(oldMessages || []), { user: true, message }]);
+  await setRedisKey(key, [...(oldMessages || []), { user: true, message }], true);
 
   socket.to(origin).emit('user_message', { userID, origin, message: { user: true, message }});
 };
@@ -24,7 +24,9 @@ export const userConnect = async ({ origin, userID }, socket) => {
 export const userDisconnect = async ({ origin, userID }, socket) => {
   const key = keys.connectedUsers(origin);
   const connectedUsers = await getRedisKey(key);
-  await setRedisKey(key, connectedUsers.filter(item => item.userID !== userID));
+  if (connectedUsers) {
+    await setRedisKey(key, connectedUsers.filter(item => item.userID !== userID));
+  }
 
   socket.to(origin).emit('user_disconnected', { origin, userID });
 };

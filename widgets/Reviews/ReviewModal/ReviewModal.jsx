@@ -40,12 +40,12 @@ export const ReviewModal = ({ onClose, onSubmit, user: propUser, lang, message }
     const { isValid, errors } = checkPublishData({ advantages, disAdvantages, user, rating }, lang);
     if (!isValid) return setState({ ...state, errors });
 
-    const { errors: stateErrors, loading, user: { avatar, ...restUser }, ...restData } = state;
+    const { errors: stateErrors, loading, ...restData } = state;
     const { href, origin } = window.location;
 
     try {
       setState(prev => ({ ...prev, loading: true, errors: {} }));
-      const review = await uploadData({ ...restData, user: restUser, href: href.split('?')[0], origin });
+      const review = await uploadData({ ...restData, href: href.split('?')[0], origin });
 
       onSubmit(review);
     } catch (e) {

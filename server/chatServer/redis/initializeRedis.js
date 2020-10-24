@@ -16,6 +16,9 @@ export const getRedisKey = async (key) => {
 
   return value && JSON.parse(value);
 };
-export const setRedisKey = async (key, value) => {
-  return setAsync(key, JSON.stringify(value));
+export const setRedisKey = async (key, value, expires) => {
+  if (expires) {
+    return setAsync(key, JSON.stringify(value), 'EX', 3600) // 1 hour expires;
+  }
+  return setAsync(key, JSON.stringify(value))
 };

@@ -15,6 +15,10 @@ import { api } from './api';
 dotenv.config();
 const server = express();
 
+const staticOptions = {
+  maxAge: 2592000,
+};
+
 server.use(Fingerprint({
   parameters: [
     Fingerprint.useragent,
@@ -24,8 +28,8 @@ server.use(Fingerprint({
 }));
 server.use(bodyParser.json());
 server.use(cors());
-server.use(express.static(path.join(process.cwd(), 'public')));
-server.use(express.static(config.uploads.uploadPath));
+server.use(express.static(path.join(process.cwd(), 'public'), staticOptions));
+server.use(express.static(config.uploads.uploadPath, staticOptions));
 
 server.use('/api', api);
 
@@ -35,7 +39,6 @@ server.post('/main', async ({ body: { ids }, headers }, res) => {
     if (!isValid) throw error;
 
     const { scripts, css, addingStyles } = getSrcs(ids, domain._doc, lang, styles);
-    res.set({ 'Cache-Control': 'max-age=2592000' });
     res.json({ scripts, css, addingStyles });
   } catch (e) {
     res.status(e.status || 500).json({ global: e.message });

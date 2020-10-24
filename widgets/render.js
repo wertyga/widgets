@@ -10,8 +10,13 @@ function injectFont() {
   document.head.appendChild(link);
 };
 
-function injectAddingStyles(addingStyles) {
+function injectAddingStyles(service, addingStyles) {
+  const id = `w-${service}-styles-custom`
+  const existStyleTag = document.getElementById(id);
+  if (existStyleTag) return;
+
   const styleTag = document.createElement('style');
+  styleTag.id = id;
   styleTag.innerHTML = addingStyles;
   document.body.appendChild(styleTag);
 };
@@ -27,30 +32,47 @@ function defineBootstrap () {
 };
 
 function fetchCss(cssUrl) {
-  axios(cssUrl)
+  const [_, service] = cssUrl.match(/_(\w+).css/);
+  const id = `w-${service}-styles-common`;
+  const existStyles = document.getElementById(id);
+  if (existStyles) return;
+
+  return axios(cssUrl)
     .then(res => {
       const style = document.createElement('style');
+      style.id = id;
       style.innerHTML = res.data;
       document.head.appendChild(style);
     })
 };
+function fetchScript(script) {
+  const { filename, type } = script
+  const [_, service] = filename.match(/_(\w+)_\w+.js/);
+  const id = `w-${service}-script`;
+  const existScript = document.getElementById(id);
+  if (existScript && type === 'reload') {
+    document.body.removeChild(existScript);
+  }
+  const scriptTag = document.createElement('script');
+  scriptTag.id = id;
+  scriptTag.src = filename;
+  document.body.appendChild(scriptTag);
+};
 
 function injectScripts({ scripts, css, addingStyles }) {
   if (css && css.length) {
-    Promise.all(css.map(cssUrl => fetchCss(`${config.serverUrl}/${cssUrl}`)));
+    Promise.all(css.map(cssUrl => fetchCss(cssUrl)));
   }
-  if (addingStyles && addingStyles.length) {
-    addingStyles.forEach((styles) => {
-      injectAddingStyles(styles);
+  if (addingStyles) {
+    Object.entries(addingStyles).forEach(([service, styles]) => {
+      if (!Object.keys(styles).length) return;
+      injectAddingStyles(service, styles);
     });
   }
 
   if (scripts) {
     for(let i = 0; i < scripts.length; i++) {
-      const script = document.createElement('script');
-
-      script.src = `${config.serverUrl}/${scripts[i]}`;
-      document.body.appendChild(script);
+      fetchScript(scripts[i]);
     }
   }
 };

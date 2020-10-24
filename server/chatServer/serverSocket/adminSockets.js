@@ -45,7 +45,7 @@ export const adminDisconnected = (origins, socket, io) => {
 export const adminMessage = async ({ message, socketID, origin, userID }, socket) => {
   const key = keys.userMessageKey(userID, origin);
   const oldMessages = await getRedisKey(key);
-  await setRedisKey(key, [...(oldMessages || []), { message }]);
+  await setRedisKey(key, [...(oldMessages || []), { message }], true);
 
   socket.to(socketID).emit('admin_message', message);
 };
