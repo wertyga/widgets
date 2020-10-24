@@ -30,7 +30,7 @@
     "express-formidable": "^1.2.0",
     "express-session": "^1.15.6",
     "lodash": "^4.17.10",
-    "mongoose": "^4.13.20",
+    "mongoose": "^5.7.5",
     "multiparty": "^4.2.1",
     "parse-formdata": "^1.0.2",
     "password-hash": "^1.2.2",
