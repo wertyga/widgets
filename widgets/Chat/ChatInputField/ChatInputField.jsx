@@ -1,5 +1,5 @@
 import { Input } from "widgets/components";
-import { Carret } from 'widgets/components/Icons/Carret';
+import { AngleRight } from 'widgets/components/Icons';
 
 import { socket } from '../Socket/socketEvents';
 
@@ -35,6 +35,7 @@ export class ChatInputField extends React.Component {
   onChange = ({ target: { value } }) => {
     this.sendUserActive();
     this.setState({ value });
+    if (!value) this.props.onMessage(value); // Drop edit message
   }
 
   onSend = () => {
@@ -57,60 +58,9 @@ export class ChatInputField extends React.Component {
           }}
         />
         <div onClick={this.onSend} className="cht-inf__btn">
-          <Carret />
+          <AngleRight />
         </div>
       </div>
     );
   }
 }
-
-// export const ChatInputField = ({ lang, onMessage, editValue }) => {
-//   let timer;
-//   const [value, setValue] = useState('');
-//
-//   const sendUserActive = () => {
-//     if (timer) {
-//       clearTimeout(timer);
-//       timer = null;
-//     }
-//
-//     const { origin, user } = window.W_widgets;
-//     socket.emit('user_active', { userID: user, origin, active: true });
-//     timer = setTimeout(() => {
-//       socket.emit('user_active', { userID: user, origin, active: false });
-//     }, 1000);
-//   };
-//
-//   const onChange = ({ target: { value: message } }) => {
-//     sendUserActive();
-//     setValue(message);
-//   };
-//
-//   const onSend = () => {
-//     onMessage(value);
-//     setValue('');
-//   };
-//
-//   useEffect(() => {
-//     setValue(editValue);
-//   }, [editValue]);
-//
-//   return (
-//     <div className="cht-inf">
-//       <Input
-//         value={value}
-//         onChange={onChange}
-//         className="mb-4"
-//         textarea
-//         style={{
-//           borderLeft: 'none',
-//           borderRight: 'none',
-//           borderBottom: 'none',
-//         }}
-//       />
-//       <div onClick={onSend} className="cht-inf__btn">
-//         <Carret />
-//       </div>
-//     </div>
-//   );
-// };

@@ -13,17 +13,20 @@ import './styles.css';
 
 export const ChatMainField = ({ lang }) => {
   const messagesRef = useRef();
+  const {
+    settings: { chat: { support_greeting } = {} },
+    origin, user
+  } = window.W_widgets;
+
   const [messages, setMessages] = useState([]);
   const [editValue, setEditValue] = useState({ message: '', index: undefined });
 
   const sendNewMessage = (message) => {
-    const { origin, user } = window.W_widgets;
     setMessages(prev => ([ ...prev, { message, user: true }]));
     socket.emit('user_message', { origin, message, userID: user });
   };
 
   const handleSendEditedMessage = (message) => {
-    const { origin, user } = window.W_widgets;
     socket.emit('message_edit', { origin, value: message, userID: user, index: editValue.index });
     setEditValue({ message: '', index: undefined });
   };
@@ -43,19 +46,18 @@ export const ChatMainField = ({ lang }) => {
   };
 
   const handleDelete = index => () => {
-    const { origin, user } = window.W_widgets;
     socket.emit('message_delete', { origin, userID: user, index });
+    setEditValue({ message: '', index: undefined });
   };
 
   useEffect(() => {
-    const { origin, user } = window.W_widgets;
     socket.on('admin_message', (message, index) => {
       if (index || index === 0) {
         setMessages(prev => (
           prev.map((m, i) => i === index ? { message } : m)
         ));
       } else {
-        setMessages(prev => ([...prev, {message}]));
+        setMessages(prev => ([...prev, { message }]));
       }
     });
     socket.on('user_messages', ({ messages }) => {
@@ -70,12 +72,21 @@ export const ChatMainField = ({ lang }) => {
     }
   }, [messages.length]);
 
-  const { managerName } = getChatMeta();
+  const { support_name } = getChatMeta();
   return (
     <div className="pl-4 pr-4 mb-2">
       <div className="cht-mf-in mb-4 pa-2" ref={messagesRef}>
+        <div
+          className={classnames('cht-msg d-flex mb-2')}
+        >
+          <div className="flex-column">
+            <span className="font-light mb-2">{support_name}</span>
+            <span className="cht-msg__msg">{support_greeting}</span>
+          </div>
+        </div>
+
         {messages.map(({ message, user }, i) => {
-          const name = user ? common.you[lang] : managerName;
+          const name = user ? common.you[lang] : support_name;
           return (
             <div
               key={`message-${i}`}

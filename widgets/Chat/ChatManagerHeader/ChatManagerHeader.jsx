@@ -8,16 +8,13 @@ import { socket } from '../Socket/socketEvents';
 
 import './styles.css';
 
-const MANAGER_MOCK = (lang) => ({
-  managerName: 'Jim',
-  managerDescription: chatManager.mangerDefaultDescription[lang],
-  managerAvatar: `${config.serverUrl}/static/b4b.jpg`,
-});
-
 export const ChatManagerHeader = ({ lang, admins }) => {
   const [state, setState] = useState({ adminActive: false });
 
-  const { managerName, managerDescription, managerAvatar } = MANAGER_MOCK(lang);
+  const {
+    settings: {
+      chat: { support_name, support_position, support_avatar = `${config.serverUrl}/static/support_avatar.png` } = {} },
+  } = window.W_widgets;
 
   useEffect(() => {
     socket.on('admin_activity', adminActive => {
@@ -26,14 +23,14 @@ export const ChatManagerHeader = ({ lang, admins }) => {
   }, []);
 
   return (
-    <div className="w-cht-mh pb-4 pl-4 pr-4 d-flex align-center">
+    <div className="w-cht-mh pa-4 d-flex align-center">
       <div className="mr-4 w-cht-mh__ava">
-        {!!admins.length && <span className="w-cht-mh__online"/>}
-        <UserAvatar user={{ avatar: managerAvatar }}/>
+        {!!admins.length && <span className="w-cht-mh__online" />}
+        <UserAvatar user={{ avatar: support_avatar }}/>
       </div>
       <div className="flex-column relative">
-        {managerName && <span className="font-bold">{managerName}</span>}
-        <span className="w-cht-mh__name font-size-sm">{managerDescription}</span>
+        {support_name && <span className="font-bold">{support_name}</span>}
+        <span className="w-cht-mh__name font-size-sm">{support_position}</span>
         {state.adminActive && <span className="w-cht-mh__tp">{chatManager.typing[lang]}</span>}
       </div>
     </div>

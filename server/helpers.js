@@ -36,11 +36,14 @@ export const getSrcs = (services, domain, lang, styles) => {
   const scripts = [];
   const css = [];
   const addingStyles = {};
+  const settings = {};
+
   services.forEach(service => {
     const isDomainEnabled = domain.settings[service] && domain.settings[service].enabled;
     if (isDomainEnabled && domain.services.includes(service)) {
       const serverHost = `${process.env.SERVERHOST}:${process.env.PORT}`;
       const clearName = service.split('_')[0];
+
       css.push(`${serverHost}/${process.env[`CSS_${clearName.toUpperCase()}`]}`);
       scripts.push({
         filename: `${serverHost}/${process.env[`JS_${service.toUpperCase()}_${lang.toUpperCase()}`]}`,
@@ -54,5 +57,5 @@ export const getSrcs = (services, domain, lang, styles) => {
     }
   });
 
-  return { scripts, css, addingStyles };
+  return { scripts, css, addingStyles, settings: domain.settings };
 };

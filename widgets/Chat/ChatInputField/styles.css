@@ -18,15 +18,11 @@
 }
 
 .w-widgets .cht-inf__btn svg {
-  transform: rotate(270deg);
   transition: transform .3s;
   margin-left: 3px;
   color: var(--color-green-light);
 }
 
-.w-widgets .cht-inf__btn:hover svg {
-  transform: rotate(270deg) scale(1.2);
-}
 .w-widgets .cht-inf__btn:hover svg path {
   fill: var(--color-green-light);
 }

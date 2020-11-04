@@ -38,8 +38,8 @@ server.post('/main', async ({ body: { ids }, headers }, res) => {
     const { isValid, error, domain, styles, lang } = await checkCredentialsForMain(headers, ids, true);
     if (!isValid) throw error;
 
-    const { scripts, css, addingStyles } = getSrcs(ids, domain._doc, lang, styles);
-    res.json({ scripts, css, addingStyles });
+    const { scripts, css, addingStyles, settings } = getSrcs(ids, domain._doc, lang, styles);
+    res.json({ scripts, css, addingStyles, settings });
   } catch (e) {
     res.status(e.status || 500).json({ global: e.message });
   }

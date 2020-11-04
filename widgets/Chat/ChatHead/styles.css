@@ -4,7 +4,11 @@
   /*align-items: center;*/
   /*justify-content: space-between;*/
 }
-
+.w-widgets .w-cht-h .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 /*.w-widgets .w-cht-h .close:after {*/
 /*  content: '&#x274C;';*/
 /*  display: block;*/

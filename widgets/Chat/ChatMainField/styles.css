@@ -13,7 +13,7 @@
   width: 100%;
 }
 .w-widgets .cht-mf-in .cht-msg:hover .cht-msg__icns {
-  display: flex;
+  display: flex !important;
 }
 
 .w-widgets .cht-mf-in .cht-msg__user {
@@ -33,7 +33,7 @@
 }
 
 .w-widgets .cht-msg__icns {
-  display: none;
+  display: none !important;
 }
 .w-widgets .cht-msg__icns svg path {
   fill: var(--color-grey-1);

@@ -59,7 +59,8 @@ function fetchScript(script) {
   document.body.appendChild(scriptTag);
 };
 
-function injectScripts({ scripts, css, addingStyles }) {
+function injectScripts({ scripts, css, addingStyles, settings }) {
+  window.W_widgets.settings = settings;
   if (css && css.length) {
     Promise.all(css.map(cssUrl => fetchCss(cssUrl)));
   }
@@ -102,8 +103,8 @@ function bootstrap(href) {
     })
   })
     .then(response => response.json())
-    .then(({ scripts, css, addingStyles }) => {
-      injectScripts({ scripts, css, addingStyles });
+    .then(({ scripts, css, addingStyles, settings }) => {
+      injectScripts({ scripts, css, addingStyles, settings });
     })
     .catch(e => console.log(e));
 };

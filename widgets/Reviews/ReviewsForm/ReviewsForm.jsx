@@ -90,10 +90,6 @@ export const ReviewsForm = ({ lang, user, location = {} }) => {
     getReviews();
   }, []);
 
-  useEffect(() => {
-    console.log('ReviewsForm: ', location);
-  }, [location.pathname]);
-
   if (state.commonRating === false) return null;
   return (
     <div className={classnames('w-rf-wr w-100', { mobile: state.mobile })}>
