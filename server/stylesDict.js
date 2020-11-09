@@ -2,8 +2,28 @@ export const stylesDict = {
   reviews: {
     name: {
       color: {
-        selector: '.w-rv-il__rv-us__cnt .user-name',
-        propName: 'color',
+        selector: [
+          '.w-rv-il__rv-us__cnt .user-name',
+          '.w-rg-usr-wr span',
+          '.w-rv-md__c__hd',
+          '.w-rv-md-ci',
+          '.w-rv-img-upl svg path',
+          '.w-rv-md__c input, .w-rv-md__c textarea',
+          '.w-rv-md__c input::placeholder, .w-rv-md__c textarea::placeholder'
+        ],
+        propName: ['color', 'color', 'color', 'color', 'fill', 'color', 'color'],
+      },
+    },
+    error: {
+      color: {
+        selector: ['.w-rv-md__c .error'],
+        propName: ['color'],
+      },
+    },
+    message: {
+      color: {
+        selector: ['.w-rv-md__c .ta-c'],
+        propName: ['color'],
       },
     },
     date: {
@@ -24,8 +44,8 @@ export const stylesDict = {
     },
     rating: {
       color: {
-        selector: '.w-rv-lti .w-sr .w-sr-si svg path',
-        propName: 'fill',
+        selector: ['.w-rv-lti .w-sr .w-sr-si svg path', '.w-rv-md__c__hd .w-sr-wr svg path'],
+        propName: ['fill', 'fill'],
       },
     },
     commentIcon: {
@@ -48,27 +68,46 @@ export const stylesDict = {
     },
     mainBlock: {
       backgroundColor: {
-        selector: '.w-rv-lti',
-        propName: 'background-color',
+        selector: ['.w-rv-lti', '.w-rv-md__c', '.w-rv-md__c input, .w-rv-md__c textarea'],
+        propName: ['background-color', 'background-color', 'background-color'],
       },
     },
-    buttons: {
-      backgroundColor: {
-        selector: '.w-rv-il__cm__btn-wrp button, .w-rf__lay-rv-btn button',
-        propName: 'background-color',
-      },
-      color: {
-        selector: [
-          '.w-rv-il__cm__btn-wrp button, .w-rf__lay-rv-btn button',
-          '.w-rf__lay-rv-btn button svg path',
-        ],
-        propName: ['color', 'fill'],
-      },
-    },
+    // buttons: {
+    //   backgroundColor: {
+    //     selector: '.w-rv-il__cm__btn-wrp button, .w-rf__lay-rv-btn button',
+    //     propName: 'background-color',
+    //   },
+    //   color: {
+    //     selector: [
+    //       '.w-rv-il__cm__btn-wrp button, .w-rf__lay-rv-btn button',
+    //       '.w-rf__lay-rv-btn button svg path',
+    //     ],
+    //     propName: ['color', 'fill'],
+    //   },
+    // },
     subComment: { // styleKey
       borderColor: { // propObj
         selector: '.w-rv-il__int textarea',
         propName: 'border-color',
+      },
+      nameColor: {
+        selector: '.w-rv-il__ua span',
+        propName: 'color',
+      },
+    },
+    subCommentBtn: {
+      backgroundColor: {
+        selector: ['.w-rv-il__cm__btn-wrp .w-btn', '.w-rf__lay-rv-btn .w-btn', '.w-rg-usr-wr .w-btn'],
+        propName: ['background-color', 'background-color', 'background-color'],
+      },
+      color: {
+        selector: [
+          '.w-rv-il__cm__btn-wrp .w-btn',
+          '.w-rf__lay-rv-btn .w-btn',
+          '.w-rf__lay-rv-btn .w-btn svg path',
+          '.w-rg-usr-wr .w-btn'
+        ],
+        propName: ['color', 'color', 'fill', 'color'],
       },
     },
     totalReviews: {
@@ -82,8 +121,5 @@ export const stylesDict = {
       },
     },
   },
-};
-
-const wrapperClasses = {
-  reviews: 'w-rf-wr',
+  chat: {},
 };

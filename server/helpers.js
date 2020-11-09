@@ -3,7 +3,7 @@ import { stylesDict } from './stylesDict';
 import { gfServices } from './goldfish';
 
 const getSelectorProps = (service, styleKey, dbStyles) => {
-  return Object.entries(stylesDict[service][styleKey])
+  return Object.entries(stylesDict[service][styleKey] || {})
     .map(([key, { selector, propName }]) => {
       const selectors = !(selector instanceof Array) ? [selector] : selector;
       const prop = !(propName instanceof Array) ? [propName] : propName;
@@ -28,15 +28,13 @@ export const getAddingStyles = (service, styles) => {
         return `${init} ${computedProp}`;
       }, '');
     })
-    .join('')
-    .replace(/\s/g, '');
+    .join('');
 };
 
 export const getSrcs = (services, domain, lang, styles) => {
   const scripts = [];
   const css = [];
   const addingStyles = {};
-  const settings = {};
 
   services.forEach(service => {
     const isDomainEnabled = domain.settings[service] && domain.settings[service].enabled;

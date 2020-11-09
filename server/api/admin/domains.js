@@ -1,5 +1,4 @@
 import express from 'express';
-import _isEmpty from 'lodash/isEmpty';
 import { checkClientCredentials, isClientOwnerDomain } from 'server/middlewares';
 import { noValidDataError, clearDomain, permissionDeniedError } from 'server/utils';
 import { Domain } from 'server/models';
@@ -34,7 +33,7 @@ adminDomainsRouter.post('/', checkClientCredentials, async ({
     domainExistError.status = 400;
 
     const editedOrigin = origin.trim().replace(/\/$/, '');
-   if (domainId) {
+    if (domainId) {
       if (
         existDomain &&
         clearDomain(origin) === clearDomain(existDomain.origin) &&
@@ -48,14 +47,14 @@ adminDomainsRouter.post('/', checkClientCredentials, async ({
         domainId,
         { $set: { origin: editedOrigin, services, lang: serviceLang, favicon } }
       );
-   } else {
-    if (existDomain) throw domainExistError;
+     } else {
+      if (existDomain) throw domainExistError;
 
-    const favicon = await getFavicon(origin);
-    await Domain.saveWithToken({
-      origin: editedOrigin, services, lang: serviceLang, owner: client._id, favicon,
-     });
-   }
+      const favicon = await getFavicon(origin);
+      await Domain.saveWithToken({
+        origin: editedOrigin, services, lang: serviceLang, owner: client._id, favicon,
+       });
+     }
 
   const userDomains = await Domain.find({ owner: client._id });
 

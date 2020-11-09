@@ -75,7 +75,7 @@ export const ChatMainField = ({ lang }) => {
   const { support_name } = getChatMeta();
   return (
     <div className="pl-4 pr-4 mb-2">
-      <div className="cht-mf-in mb-4 pa-2" ref={messagesRef}>
+      <div className="cht-mf-in mb-4 pa-2 mt-2" ref={messagesRef}>
         <div
           className={classnames('cht-msg d-flex mb-2')}
         >

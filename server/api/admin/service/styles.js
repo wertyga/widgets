@@ -1,15 +1,19 @@
 import express from "express";
 import { checkClientCredentials } from 'server/middlewares';
-import { Styles } from "server/models";
+import { Styles, Domain } from "server/models";
 
 export const adminServiceStylesRouter = express.Router();
 
 adminServiceStylesRouter.get('/:service/:domainId', checkClientCredentials, async (req, res) => {
   try {
     const { params: { service, domainId } } = req;
-    const styles = await Styles.findOne({ domain: domainId, service })
+    const [dbStyles, domain] = await Promise.all([
+      Styles.findOne({ domain: domainId, service }),
+      Domain.findById(domainId),
+    ]);
 
-    res.json(styles || {});
+    const { styles } = dbStyles || {};
+    res.json({ styles, domain });
   } catch (e) {
     res.status(e.status || 500).json({ messsage: e.message });
   }

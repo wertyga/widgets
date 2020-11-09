@@ -19,8 +19,6 @@ const browserConfig = {
     publicPath:  '',
     filename: ({ chunk: { name } }) => {
       if (name === 'test') return '../TEST/test_compiled.js';
-      // if (name === 'render') return '[hash]_[name].js';
-      // return '[name].js';
       return '[hash]_[name].js';
     },
   },

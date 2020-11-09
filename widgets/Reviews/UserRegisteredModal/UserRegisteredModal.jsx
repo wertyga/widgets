@@ -7,7 +7,7 @@ export const UserRegisteredModal = ({ user = {}, onPublish, lang, dropUser }) =>
   const image = avatar || `${config.serverUrl}/static/anonym.png`;
 
   return (
-    <div className="justify-between">
+    <div className="justify-between w-rg-usr-wr">
       <div className="w-rg-usr-md__c d-flex">
         <img className="mr-4 avatar" src={image} alt="Avatar" />
         <div className="flex-column justify-between">

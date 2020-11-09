@@ -84,7 +84,7 @@ export const ReviewModal = ({ onClose, onSubmit, user: propUser, lang, message }
         {stateErrors.global && <span className="error">{stateErrors.global}</span>}
         {message && <p className="w-100 ta-c font-light">{message}</p>}
 
-        <div className="mb-4">
+        <div className="mb-4 w-rv-md__c__hd">
           <p>{common.value[lang]}</p>
           <StarsReview onChange={handleEstimate} error={stateErrors.rating} className="d-i-flex-i" />
         </div>
