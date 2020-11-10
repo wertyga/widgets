@@ -16,9 +16,5 @@
 }
 
 .w-widgets .w-cht-cl:hover {
-  background: #fff;
   transform: scale(1.1);
-}
-.w-widgets .w-cht-cl:hover svg {
-  color: #00dc4f;
 }

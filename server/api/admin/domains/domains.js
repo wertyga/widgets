@@ -3,7 +3,7 @@ import { checkClientCredentials, isClientOwnerDomain } from 'server/middlewares'
 import { noValidDataError, clearDomain, permissionDeniedError } from 'server/utils';
 import { Domain } from 'server/models';
 import { gfErrors } from 'server/config';
-import { getFavicon } from '../helpers';
+import { getFavicon } from '../../helpers';
 
 export const adminDomainsRouter = express.Router();
 

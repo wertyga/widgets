@@ -11,12 +11,13 @@ reviewRouter.get('/get', reviewCredentials, async (req, res) => {
   try {
     const from = parseInt(offset);
 
-    const fetchObj = { href };
-    if (userDomain.settings.reviews.preEdit) fetchObj.allowed = true;
-
     const [reviews, totalCount] = await Promise.all([
-      Review.find(fetchObj).skip(from).limit(REVIEWS_LIMIT).sort({ createdAt: -1 }).populate('subComment', ['text', 'user', 'createdAt']),
-      Review.find(fetchObj).count(),
+      Review.find({ href, allowed: true })
+        .skip(from)
+        .limit(REVIEWS_LIMIT)
+        .sort({ createdAt: -1 })
+        .populate('subComment', ['text', 'user', 'createdAt']),
+      Review.find({ href, allowed: true }).count(),
     ]);
 
     const editedReviews =

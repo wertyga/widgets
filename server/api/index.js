@@ -1,7 +1,7 @@
 import express from 'express';
 import { reviewRouter } from './reviews/reviews';
 import { adminClientRouter } from './admin/client/client';
-import { adminDomainsRouter } from './admin/domains';
+import { adminDomainsRouter } from './admin/domains/domains';
 // import { paymentsRouter } from './payments/payments';
 import { adminServiceRouter } from './admin/service/service';
 import { adminReviewsRouter } from './admin/reviews/reviews';

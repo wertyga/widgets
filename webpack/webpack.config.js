@@ -30,16 +30,27 @@ const browserConfig = {
     rules: [
       {
         test: /\.css$/,
+        loader: 'css-loader',
+        include: path.resolve(process.cwd(), 'widgets/styles.css'),
+        options: {
+          importLoaders: 1,
+          modules: {
+            compileType: 'module'
+          }
+        }
+      },
+      {
+        test: /\.css$/,
         use: ExtractTextPlugin.extract({
           use: ['css-loader']
-        })
+        }),
+        exclude: path.resolve(process.cwd(), 'widgets/styles.css'),
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loaders: 'babel-loader'
       },
-
     ]
   },
 
@@ -61,6 +72,10 @@ const browserConfig = {
     new CopyPlugin({
       patterns: [
         { from: path.join(process.cwd(), 'static'), to: path.join(process.cwd(), 'public/static') },
+        {
+          from: path.join(process.cwd(), 'widgets/styles.css'),
+          to: path.join(process.cwd(), 'public/css/common.css'),
+        },
       ],
     }),
     new GenerateHashEnv(),

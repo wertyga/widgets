@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "io-server:dev": "cross-env NODE_ENV=development nodemon --exec babel-node -- server/chatServer/index.js",
+    "io-server:dev": "babel-node -- server/chatServer/index.js",
     "webpack:dev": "webpack -w --config ./webpack/webpack.config.js",
     "webpack:prod": "cross-env NODE_ENV=production webpack -p --config ./webpack/webpack.config.js",
     "generate:entries": "node webpack/generateEntriesFiles.js",

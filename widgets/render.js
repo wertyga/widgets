@@ -18,7 +18,7 @@ function injectAddingStyles(service, addingStyles) {
   const styleTag = document.createElement('style');
   styleTag.id = id;
   styleTag.innerHTML = addingStyles;
-  document.body.appendChild(styleTag);
+  document.head.appendChild(styleTag);
 };
 
 function defineBootstrap () {
@@ -31,20 +31,19 @@ function defineBootstrap () {
   };
 };
 
-function fetchCss(cssUrl) {
-  const [_, service] = cssUrl.match(/_(\w+).css/);
-  const id = `w-${service}-styles-common`;
-  const existStyles = document.getElementById(id);
-  if (existStyles) return;
+function fetchCss({ href, service }) {
+  const id = `w-${service}-styles`;
+  const existStyleTag = document.getElementById(id);
+  if (existStyleTag) return;
 
-  return axios(cssUrl)
-    .then(res => {
-      const style = document.createElement('style');
-      style.id = id;
-      style.innerHTML = res.data;
-      document.head.appendChild(style);
-    })
+  const linkTag = document.createElement('link');
+  linkTag.rel = 'stylesheet';
+  linkTag.id = id;
+  linkTag.href = href;
+
+  document.head.appendChild(linkTag);
 };
+
 function fetchScript(script) {
   const { filename, type } = script
   const [_, service] = filename.match(/_(\w+)_\w+.js/);

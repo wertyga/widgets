@@ -23,7 +23,7 @@ if (typeof window !== 'undefined') {
   axios.defaults.headers['Authorization'] = `Bearer ${widgetConfig.token}`;
 }
 
-export const ReviewsForm = ({ lang, user, location = {} }) => {
+export const ReviewsForm = ({ lang, user }) => {
   const [modalOpened, setModal] = useState(false);
   const [state, setState] = useState({
     reviews: [],
