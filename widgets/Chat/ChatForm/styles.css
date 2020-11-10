@@ -1,1 +1,6 @@
-.w-widgets .w-cht-wr {}
+.w-widgets .w-cht-wr {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 100;
+}

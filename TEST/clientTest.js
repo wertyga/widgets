@@ -16,12 +16,7 @@ const WComponent = ({ location: { pathname } }) => {
         <div w-data="reviews" className="w-widgets"/>
       }
       {renderPathChat.includes(pathname) &&
-        <div w-data="chat" className="w-widgets" style={{
-          position: 'fixed',
-          bottom: '2rem',
-          right: '2rem',
-          zIndex: 100,
-        }} />
+        <div w-data="chat" className="w-widgets"/>
       }
     </div>
   );
