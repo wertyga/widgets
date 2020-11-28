@@ -1,0 +1,5 @@
+.w-widgets .cht__op__sep span {
+  height: 1px;
+  background-color: var(--color-green);
+  width: 100%;
+}

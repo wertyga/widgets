@@ -18,7 +18,7 @@ export const Input = ({ type = 'text', textarea, value, onChange, error, classNa
       {...rest}
     />;
   return (
-    <div className={classnames('flex-column relative', className)}>
+    <div className={classnames('flex-column relative w-inp__wrp', className)}>
       {Element}
       {error && <span className="w-inp-er">{error}</span>}
     </div>

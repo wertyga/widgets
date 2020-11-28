@@ -83,6 +83,12 @@
 .w-widgets .pa-0 {
   padding: 0;
 }
+.w-widgets .pb-0 {
+  padding-bottom: 0;
+}
+.w-widgets .pa-6 {
+  padding: 1.5rem;
+}
 .w-widgets .mr-2 {
   margin-right: .5rem;
 }
@@ -191,4 +197,9 @@
   color: red;
   display: block;
   text-align: center;
+}
+
+.w-widgets textarea::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
 }

@@ -55,6 +55,7 @@ function fetchScript(script) {
   const scriptTag = document.createElement('script');
   scriptTag.id = id;
   scriptTag.src = filename;
+  scriptTag.defer = true;
   document.body.appendChild(scriptTag);
 };
 

@@ -49,16 +49,13 @@ export class ChatInputField extends React.Component {
         <Input
           value={this.state.value}
           onChange={this.onChange}
-          className="mb-4"
+          className="pb-4"
           textarea
-          style={{
-            borderLeft: 'none',
-            borderRight: 'none',
-            borderBottom: 'none',
-          }}
         />
         <div onClick={this.onSend} className="cht-inf__btn">
-          <AngleRight />
+          <button>
+            <AngleRight />
+          </button>
         </div>
       </div>
     );

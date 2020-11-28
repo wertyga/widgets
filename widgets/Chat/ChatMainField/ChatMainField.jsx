@@ -8,6 +8,7 @@ import { TrashIcon } from 'widgets/components/Icons/TrashIcon';
 
 import { socket } from '../Socket/socketEvents';
 import { ChatInputField } from '../ChatInputField/ChatInputField';
+import { ChatSeparator } from '../ChatSeparator/ChatSeparator';
 
 import './styles.css';
 
@@ -74,13 +75,13 @@ export const ChatMainField = ({ lang }) => {
 
   const { support_name } = getChatMeta();
   return (
-    <div className="pl-4 pr-4 mb-2">
-      <div className="cht-mf-in mb-4 pa-2 mt-2" ref={messagesRef}>
+    <div className="cht__op">
+      <div className="cht-mf-in pa-4" ref={messagesRef}>
         <div
           className={classnames('cht-msg d-flex mb-2')}
         >
           <div className="flex-column">
-            <span className="font-light mb-2">{support_name}</span>
+            <span className="font-light mb-2 cht-msg__name">{support_name}</span>
             <span className="cht-msg__msg">{support_greeting}</span>
           </div>
         </div>
@@ -103,14 +104,15 @@ export const ChatMainField = ({ lang }) => {
                 </div>
               }
               <div className="flex-column">
-                <span className={classnames('font-light mb-2', { 'justify-end': user })}>{`${name}`}</span>
+                <span className={classnames('font-light mb-2 cht-msg__name', { 'justify-end': user })}>{`${name}`}</span>
                 <span className={classnames('cht-msg__msg', { 'justify-end user': user })}>{message}</span>
               </div>
             </div>
           )
         })}
       </div>
-
+  
+      <ChatSeparator />
       <ChatInputField lang={lang} onMessage={handleSendMessage} editValue={editValue.message} />
     </div>
   );
