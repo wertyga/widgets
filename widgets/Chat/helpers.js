@@ -1,7 +1,22 @@
+import { getStorage } from 'utils';
+import {config} from '../config/config';
+
 export const getChatMeta = () => {
   if (typeof window ==='undefined') return {};
-  const { settings: { chat: { support_name } } = {} } = window.W_widgets;
+  const {
+    settings: {
+      chat: {
+        supportName,
+        supportGreeting,
+        supportPosition,
+        supportAvatar = '/static/chat/supportAvatar.png',
+      },
+    } = {},
+  } = getStorage();
   return {
-    support_name,
+    supportName,
+    supportPosition,
+    supportGreeting,
+    supportAvatar: `${config.serverUrl}${supportAvatar}`,
   };
 };

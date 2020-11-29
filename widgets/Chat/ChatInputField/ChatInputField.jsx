@@ -1,5 +1,6 @@
+import { getStorage } from 'utils';
 import { Input } from "widgets/components";
-import { AngleRight } from 'widgets/components/Icons';
+import { ChatSubmitBtn } from '../ChatSubmitBtn/ChatSubmitBtn';
 
 import { socket } from '../Socket/socketEvents';
 
@@ -25,10 +26,10 @@ export class ChatInputField extends React.Component {
       this.timer = null;
     }
 
-    const { origin, user } = window.W_widgets;
-    socket.emit('user_active', { userID: user, origin, active: true });
+    const { origin, userId } = getStorage();
+    socket.emit('user_active', { userID: userId, origin, active: true });
     this.timer = setTimeout(() => {
-      socket.emit('user_active', { userID: user, origin, active: false });
+      socket.emit('user_active', { userID: userId, origin, active: false });
     }, TIMEOUT);
   }
 
@@ -52,11 +53,9 @@ export class ChatInputField extends React.Component {
           className="pb-4"
           textarea
         />
-        <div onClick={this.onSend} className="cht-inf__btn">
-          <button>
-            <AngleRight />
-          </button>
-        </div>
+        <ChatSubmitBtn
+          onSubmit={this.onSend}
+        />
       </div>
     );
   }

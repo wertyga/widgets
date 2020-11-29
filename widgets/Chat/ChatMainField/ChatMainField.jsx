@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { getStorage } from 'utils';
 import classnames from 'classnames';
 import { _isEmpty } from "utils/lodash";
 import { getChatMeta } from 'widgets/Chat/helpers';
@@ -15,25 +16,24 @@ import './styles.css';
 export const ChatMainField = ({ lang }) => {
   const messagesRef = useRef();
   const {
-    settings: { chat: { support_greeting } = {} },
-    origin, user
-  } = window.W_widgets;
+    settings: { chat: { supportGreeting } = {} },
+    origin, userId
+  } = getStorage();
 
   const [messages, setMessages] = useState([]);
   const [editValue, setEditValue] = useState({ message: '', index: undefined });
 
   const sendNewMessage = (message) => {
     setMessages(prev => ([ ...prev, { message, user: true }]));
-    socket.emit('user_message', { origin, message, userID: user });
+    socket.emit('user_message', { origin, message, userID: userId });
   };
 
   const handleSendEditedMessage = (message) => {
-    socket.emit('message_edit', { origin, value: message, userID: user, index: editValue.index });
+    socket.emit('message_edit', { origin, value: message, userID: userId, index: editValue.index });
     setEditValue({ message: '', index: undefined });
   };
 
   const handleSendMessage = (message) => {
-    if (_isEmpty(window.W_widgets)) return;
     if (!message) {
       setEditValue({ message: '', index: undefined });
       return;
@@ -47,7 +47,7 @@ export const ChatMainField = ({ lang }) => {
   };
 
   const handleDelete = index => () => {
-    socket.emit('message_delete', { origin, userID: user, index });
+    socket.emit('message_delete', { origin, userID: userId, index });
     setEditValue({ message: '', index: undefined });
   };
 
@@ -64,7 +64,7 @@ export const ChatMainField = ({ lang }) => {
     socket.on('user_messages', ({ messages }) => {
       setMessages(messages || []);
     });
-    socket.emit('get_user_messages', { origin, userID: user })
+    socket.emit('get_user_messages', { origin, userID: userId })
   }, []);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export const ChatMainField = ({ lang }) => {
     }
   }, [messages.length]);
 
-  const { support_name } = getChatMeta();
+  const { supportName } = getChatMeta();
   return (
     <div className="cht__op">
       <div className="cht-mf-in pa-4" ref={messagesRef}>
@@ -81,13 +81,13 @@ export const ChatMainField = ({ lang }) => {
           className={classnames('cht-msg d-flex mb-2')}
         >
           <div className="flex-column">
-            <span className="font-light mb-2 cht-msg__name">{support_name}</span>
-            <span className="cht-msg__msg">{support_greeting}</span>
+            <span className="font-light mb-2 cht-msg__name">{supportName}</span>
+            <span className="cht-msg__msg">{supportGreeting}</span>
           </div>
         </div>
 
         {messages.map(({ message, user }, i) => {
-          const name = user ? common.you[lang] : support_name;
+          const name = user ? common.you[lang] : supportName;
           return (
             <div
               key={`message-${i}`}

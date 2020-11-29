@@ -1,8 +1,15 @@
 export const gfServerSettings = {
   defaultSettings: {
     chat: {
-      support_name: 'Jim',
-      support_position: '',
+      enabled: false,
+      supportName: 'Jim',
+      supportPosition: 'Manager',
+      supportGreeting: 'Hello!',
+      supportAvatar: '',
+    },
+    reviews: {
+      enabled: false,
+      preEdit: false,
     },
   },
 };

@@ -1,4 +1,5 @@
 import { render } from 'react-dom';
+import { getStorage } from 'utils';
 import { useEffect } from 'react';
 import { Switch, Route, Link, BrowserRouter } from 'react-router-dom';
 

@@ -1,7 +1,6 @@
-import axios from 'axios';
 import shortID from 'short-id';
 import { config } from './config/config';
-import { getCookie, setCookie } from '../utils/cookies';
+import { getStorage, setStorage } from '../utils';
 
 function injectFont() {
   const link = document.createElement('link');
@@ -22,11 +21,13 @@ function injectAddingStyles(service, addingStyles) {
 };
 
 function defineBootstrap () {
-  const userIDCookie = getCookie('w-userID') || shortID.generate();
-  setCookie('w-userID', userIDCookie);
+  const userId = getStorage('userId') || shortID.generate();
+  setStorage(undefined, { userId, ...window.W_widgets });
+  const clearableScripts = document.querySelectorAll('[w-data="clearable"]');
+  clearableScripts.forEach(script => document.body.removeChild(script));
   window.W_widgets = {
-    ...window.W_widgets,
-    user: userIDCookie,
+    // ...window.W_widgets,
+    // user: userIDCookie,
     bootstrap: function() { bootstrap(window.location.href) },
   };
 };
@@ -60,7 +61,8 @@ function fetchScript(script) {
 };
 
 function injectScripts({ scripts, css, addingStyles, settings }) {
-  window.W_widgets.settings = settings;
+  setStorage('settings', settings);
+  // window.W_widgets.settings = settings;
   if (css && css.length) {
     Promise.all(css.map(cssUrl => fetchCss(cssUrl)));
   }
@@ -80,8 +82,7 @@ function injectScripts({ scripts, css, addingStyles, settings }) {
 
 function bootstrap(href) {
   if (!href) return;
-  const widgetConfig = window.W_widgets || {};
-  const { token } = widgetConfig;
+  const { token } = getStorage();
 
   const containers = document.querySelectorAll('[w-data]');
   const ids = [];

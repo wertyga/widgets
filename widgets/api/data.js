@@ -1,10 +1,10 @@
-import { saveUser } from './user';
+import { getStorage } from 'utils';
 import axios from 'axios';
 import { config } from '../config/config';
 
 export const uploadData = async ({ images, ...rest }) => {
   const formData = new FormData();
-  const { token } = window.W_widgets || {};
+  const { token } = getStorage();
 
   images.forEach((file, i) => {
     formData.append(`file-${i}`, file);

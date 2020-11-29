@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import classnames from 'classnames';
+import { getStorage } from 'utils';
 
 import { fetchReviews } from 'widgets/api/reviews';
 
@@ -19,7 +20,7 @@ import './styles.css';
 const MOBILE_WIDTH = 600;
 
 if (typeof window !== 'undefined') {
-  const widgetConfig = window.W_widgets || {};
+  const widgetConfig = getStorage();
   axios.defaults.headers['Authorization'] = `Bearer ${widgetConfig.token}`;
 }
 

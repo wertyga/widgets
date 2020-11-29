@@ -94,7 +94,18 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("/* WEBPACK VAR INJECTION */(function(React) {\n\nvar _reactDom = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _reactRouterDom = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/esm/react-router-dom.js\");\n\nvar _ref2 = /*#__PURE__*/React.createElement(\"div\", {\n  \"w-data\": \"reviews\",\n  className: \"w-widgets\"\n});\n\nvar _ref3 = /*#__PURE__*/React.createElement(\"div\", {\n  \"w-data\": \"chat\",\n  className: \"w-widgets\"\n});\n\nvar WComponent = function WComponent(_ref) {\n  var pathname = _ref.location.pathname;\n  var renderPathReviews = ['/', '/reviews'];\n  var renderPathChat = ['/', '/chat'];\n  (0, _react.useEffect)(function () {\n    var _window = window,\n        _window$W_widgets = _window.W_widgets;\n    _window$W_widgets = _window$W_widgets === void 0 ? {} : _window$W_widgets;\n    var bootstrap = _window$W_widgets.bootstrap;\n    bootstrap && bootstrap();\n  }, [pathname]);\n  return /*#__PURE__*/React.createElement(\"div\", null, renderPathReviews.includes(pathname) && _ref2, renderPathChat.includes(pathname) && _ref3);\n};\n\nvar _ref4 = /*#__PURE__*/React.createElement(\"h1\", null, \"Main Page\");\n\nvar Main = function Main() {\n  return /*#__PURE__*/React.createElement(\"div\", null, _ref4);\n};\n\nvar _ref5 = /*#__PURE__*/React.createElement(\"h1\", null, \"Another Page\");\n\nvar Reviews = function Reviews() {\n  return /*#__PURE__*/React.createElement(\"div\", null, _ref5);\n};\n\nvar _ref6 = /*#__PURE__*/React.createElement(\"h1\", null, \"Chat Page\");\n\nvar Chat = function Chat() {\n  return /*#__PURE__*/React.createElement(\"div\", null, _ref6);\n};\n\nvar _ref7 = /*#__PURE__*/React.createElement(\"h1\", null, \"Both Page\");\n\nvar Both = function Both() {\n  return /*#__PURE__*/React.createElement(\"div\", null, _ref7);\n};\n\nvar _ref8 = /*#__PURE__*/React.createElement(\"div\", null, /*#__PURE__*/React.createElement(\"h1\", null, \"Empty Page\"));\n\nvar Empty = function Empty() {\n  return _ref8;\n};\n\nvar _ref9 = /*#__PURE__*/React.createElement(\"div\", null, /*#__PURE__*/React.createElement(\"ul\", null, /*#__PURE__*/React.createElement(\"li\", null, /*#__PURE__*/React.createElement(_reactRouterDom.Link, {\n  to: \"/\"\n}, \"To main page\")), /*#__PURE__*/React.createElement(\"li\", null, /*#__PURE__*/React.createElement(_reactRouterDom.Link, {\n  to: \"/reviews\"\n}, \"To reviews page\")), /*#__PURE__*/React.createElement(\"li\", null, /*#__PURE__*/React.createElement(_reactRouterDom.Link, {\n  to: \"/chat\"\n}, \"To chat page\")), /*#__PURE__*/React.createElement(\"li\", null, /*#__PURE__*/React.createElement(_reactRouterDom.Link, {\n  to: \"/both\"\n}, \"To both page\")), /*#__PURE__*/React.createElement(\"li\", null, /*#__PURE__*/React.createElement(_reactRouterDom.Link, {\n  to: \"/empty\"\n}, \"To empty page\"))), /*#__PURE__*/React.createElement(_reactRouterDom.Route, {\n  path: \"*\",\n  component: WComponent\n}), /*#__PURE__*/React.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/React.createElement(_reactRouterDom.Route, {\n  path: \"/\",\n  exact: true,\n  component: Main\n}), /*#__PURE__*/React.createElement(_reactRouterDom.Route, {\n  path: \"/reviews\",\n  exact: true,\n  component: Reviews\n}), /*#__PURE__*/React.createElement(_reactRouterDom.Route, {\n  path: \"/chat\",\n  exact: true,\n  component: Chat\n}), /*#__PURE__*/React.createElement(_reactRouterDom.Route, {\n  path: \"/empty\",\n  exact: true,\n  component: Empty\n})));\n\nvar Wrapper = function Wrapper() {\n  return _ref9;\n};\n\n(0, _reactDom.render)( /*#__PURE__*/React.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/React.createElement(Wrapper, null)), document.getElementById('client-data'));\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! react */ \"./node_modules/react/index.js\")))\n\n//# sourceURL=webpack:///./TEST/clientTest.js?");
+eval("/* WEBPACK VAR INJECTION */(function(React) {\n\nvar _reactDom = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n\nvar _utils = __webpack_require__(/*! ../utils */ \"./utils/index.js\");\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _reactRouterDom = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/esm/react-router-dom.js\");\n\nvar _ref2 = /*#__PURE__*/React.createElement(\"div\", {\n  \"w-data\": \"reviews\",\n  className: \"w-widgets\"\n});\n\nvar _ref3 = /*#__PURE__*/React.createElement(\"div\", {\n  \"w-data\": \"chat\",\n  className: \"w-widgets\"\n});\n\nvar WComponent = function WComponent(_ref) {\n  var pathname = _ref.location.pathname;\n  var renderPathReviews = ['/', '/reviews'];\n  var renderPathChat = ['/', '/chat'];\n  (0, _react.useEffect)(function () {\n    var _window = window,\n        _window$W_widgets = _window.W_widgets;\n    _window$W_widgets = _window$W_widgets === void 0 ? {} : _window$W_widgets;\n    var bootstrap = _window$W_widgets.bootstrap;\n    bootstrap && bootstrap();\n  }, [pathname]);\n  return /*#__PURE__*/React.createElement(\"div\", null, renderPathReviews.includes(pathname) && _ref2, renderPathChat.includes(pathname) && _ref3);\n};\n\nvar _ref4 = /*#__PURE__*/React.createElement(\"h1\", null, \"Main Page\");\n\nvar Main = function Main() {\n  return /*#__PURE__*/React.createElement(\"div\", null, _ref4);\n};\n\nvar _ref5 = /*#__PURE__*/React.createElement(\"h1\", null, \"Another Page\");\n\nvar Reviews = function Reviews() {\n  return /*#__PURE__*/React.createElement(\"div\", null, _ref5);\n};\n\nvar _ref6 = /*#__PURE__*/React.createElement(\"h1\", null, \"Chat Page\");\n\nvar Chat = function Chat() {\n  return /*#__PURE__*/React.createElement(\"div\", null, _ref6);\n};\n\nvar _ref7 = /*#__PURE__*/React.createElement(\"h1\", null, \"Both Page\");\n\nvar Both = function Both() {\n  return /*#__PURE__*/React.createElement(\"div\", null, _ref7);\n};\n\nvar _ref8 = /*#__PURE__*/React.createElement(\"div\", null, /*#__PURE__*/React.createElement(\"h1\", null, \"Empty Page\"));\n\nvar Empty = function Empty() {\n  return _ref8;\n};\n\nvar _ref9 = /*#__PURE__*/React.createElement(\"div\", null, /*#__PURE__*/React.createElement(\"ul\", null, /*#__PURE__*/React.createElement(\"li\", null, /*#__PURE__*/React.createElement(_reactRouterDom.Link, {\n  to: \"/\"\n}, \"To main page\")), /*#__PURE__*/React.createElement(\"li\", null, /*#__PURE__*/React.createElement(_reactRouterDom.Link, {\n  to: \"/reviews\"\n}, \"To reviews page\")), /*#__PURE__*/React.createElement(\"li\", null, /*#__PURE__*/React.createElement(_reactRouterDom.Link, {\n  to: \"/chat\"\n}, \"To chat page\")), /*#__PURE__*/React.createElement(\"li\", null, /*#__PURE__*/React.createElement(_reactRouterDom.Link, {\n  to: \"/both\"\n}, \"To both page\")), /*#__PURE__*/React.createElement(\"li\", null, /*#__PURE__*/React.createElement(_reactRouterDom.Link, {\n  to: \"/empty\"\n}, \"To empty page\"))), /*#__PURE__*/React.createElement(_reactRouterDom.Route, {\n  path: \"*\",\n  component: WComponent\n}), /*#__PURE__*/React.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/React.createElement(_reactRouterDom.Route, {\n  path: \"/\",\n  exact: true,\n  component: Main\n}), /*#__PURE__*/React.createElement(_reactRouterDom.Route, {\n  path: \"/reviews\",\n  exact: true,\n  component: Reviews\n}), /*#__PURE__*/React.createElement(_reactRouterDom.Route, {\n  path: \"/chat\",\n  exact: true,\n  component: Chat\n}), /*#__PURE__*/React.createElement(_reactRouterDom.Route, {\n  path: \"/empty\",\n  exact: true,\n  component: Empty\n})));\n\nvar Wrapper = function Wrapper() {\n  return _ref9;\n};\n\n(0, _reactDom.render)( /*#__PURE__*/React.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/React.createElement(Wrapper, null)), document.getElementById('client-data'));\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! react */ \"./node_modules/react/index.js\")))\n\n//# sourceURL=webpack:///./TEST/clientTest.js?");
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function _defineProperty(obj, key, value) {\n  if (key in obj) {\n    Object.defineProperty(obj, key, {\n      value: value,\n      enumerable: true,\n      configurable: true,\n      writable: true\n    });\n  } else {\n    obj[key] = value;\n  }\n\n  return obj;\n}\n\nmodule.exports = _defineProperty;\n\n//# sourceURL=webpack:///./node_modules/@babel/runtime/helpers/defineProperty.js?");
 
 /***/ }),
 
@@ -131,6 +142,28 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return _objectWithoutPropertiesLoose; });\nfunction _objectWithoutPropertiesLoose(source, excluded) {\n  if (source == null) return {};\n  var target = {};\n  var sourceKeys = Object.keys(source);\n  var key, i;\n\n  for (i = 0; i < sourceKeys.length; i++) {\n    key = sourceKeys[i];\n    if (excluded.indexOf(key) >= 0) continue;\n    target[key] = source[key];\n  }\n\n  return target;\n}\n\n//# sourceURL=webpack:///./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js?");
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function _interopRequireDefault(obj) {\n  return obj && obj.__esModule ? obj : {\n    \"default\": obj\n  };\n}\n\nmodule.exports = _interopRequireDefault;\n\n//# sourceURL=webpack:///./node_modules/@babel/runtime/helpers/interopRequireDefault.js?");
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function _typeof(obj) {\n  \"@babel/helpers - typeof\";\n\n  if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") {\n    module.exports = _typeof = function _typeof(obj) {\n      return typeof obj;\n    };\n  } else {\n    module.exports = _typeof = function _typeof(obj) {\n      return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj;\n    };\n  }\n\n  return _typeof(obj);\n}\n\nmodule.exports = _typeof;\n\n//# sourceURL=webpack:///./node_modules/@babel/runtime/helpers/typeof.js?");
 
 /***/ }),
 
@@ -463,6 +496,78 @@ eval("__webpack_require__.r(__webpack_exports__);\nfunction valueOf(obj) {\n  re
 /***/ (function(module, exports) {
 
 eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn this;\n})();\n\ntry {\n\t// This works if eval is allowed (see CSP)\n\tg = g || new Function(\"return this\")();\n} catch (e) {\n\t// This works if the window reference is available\n\tif (typeof window === \"object\") g = window;\n}\n\n// g can still be undefined, but nothing to do about it...\n// We return undefined, instead of nothing here, so it's\n// easier to handle this case. if(!global) { ...}\n\nmodule.exports = g;\n\n\n//# sourceURL=webpack:///(webpack)/buildin/global.js?");
+
+/***/ }),
+
+/***/ "./utils/cookies.js":
+/*!**************************!*\
+  !*** ./utils/cookies.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nvar _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ \"./node_modules/@babel/runtime/helpers/interopRequireDefault.js\");\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.setCookie = setCookie;\nexports.getCookie = void 0;\n\nvar _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ \"./node_modules/@babel/runtime/helpers/defineProperty.js\"));\n\nfunction ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }\n\nfunction _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2[\"default\"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }\n\nvar getCookie = function getCookie(name) {\n  var matches = document.cookie.match(new RegExp(\"(?:^|; )\" + name.replace(/([\\.$?*|{}\\(\\)\\[\\]\\\\\\/\\+^])/g, '\\\\$1') + \"=([^;]*)\"));\n  return matches ? decodeURIComponent(matches[1]) : undefined;\n};\n\nexports.getCookie = getCookie;\n\nfunction setCookie(name, value) {\n  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};\n  options = _objectSpread({\n    path: '/'\n  }, options);\n\n  if (options.expires instanceof Date) {\n    options.expires = options.expires.toUTCString();\n  }\n\n  var updatedCookie = encodeURIComponent(name) + \"=\" + encodeURIComponent(value);\n\n  for (var optionKey in options) {\n    updatedCookie += \"; \" + optionKey;\n    var optionValue = options[optionKey];\n\n    if (optionValue !== true) {\n      updatedCookie += \"=\" + optionValue;\n    }\n  }\n\n  document.cookie = updatedCookie;\n}\n\n//# sourceURL=webpack:///./utils/cookies.js?");
+
+/***/ }),
+
+/***/ "./utils/date.js":
+/*!***********************!*\
+  !*** ./utils/date.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.convertedDateToSlash = void 0;\n\nvar convertedDateToSlash = function convertedDateToSlash(date) {\n  return \"\".concat(new Date(date).toLocaleDateString().replace(/\\./g, '/'), \" \").concat(new Date(date).toTimeString().split(' ')[0]);\n};\n\nexports.convertedDateToSlash = convertedDateToSlash;\n\n//# sourceURL=webpack:///./utils/date.js?");
+
+/***/ }),
+
+/***/ "./utils/description.js":
+/*!******************************!*\
+  !*** ./utils/description.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.getNoun = void 0;\n\nvar getNoun = function getNoun(numb, one, two, five) {\n  var number = Math.abs(numb);\n  number %= 100;\n\n  if (number >= 5 && number <= 20) {\n    return five;\n  }\n\n  number %= 10;\n\n  if (number == 1) {\n    return one;\n  }\n\n  if (number >= 2 && number <= 4) {\n    return two;\n  }\n\n  return five;\n};\n\nexports.getNoun = getNoun;\n\n//# sourceURL=webpack:///./utils/description.js?");
+
+/***/ }),
+
+/***/ "./utils/index.js":
+/*!************************!*\
+  !*** ./utils/index.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nObject.defineProperty(exports, \"getCookie\", {\n  enumerable: true,\n  get: function get() {\n    return _cookies.getCookie;\n  }\n});\nObject.defineProperty(exports, \"setCookie\", {\n  enumerable: true,\n  get: function get() {\n    return _cookies.setCookie;\n  }\n});\nObject.defineProperty(exports, \"getStorage\", {\n  enumerable: true,\n  get: function get() {\n    return _storage.getStorage;\n  }\n});\nObject.defineProperty(exports, \"setStorage\", {\n  enumerable: true,\n  get: function get() {\n    return _storage.setStorage;\n  }\n});\nObject.defineProperty(exports, \"_isEmpty\", {\n  enumerable: true,\n  get: function get() {\n    return _lodash._isEmpty;\n  }\n});\nObject.defineProperty(exports, \"_noop\", {\n  enumerable: true,\n  get: function get() {\n    return _lodash._noop;\n  }\n});\nObject.defineProperty(exports, \"getNoun\", {\n  enumerable: true,\n  get: function get() {\n    return _description.getNoun;\n  }\n});\nObject.defineProperty(exports, \"convertedDateToSlash\", {\n  enumerable: true,\n  get: function get() {\n    return _date.convertedDateToSlash;\n  }\n});\n\nvar _cookies = __webpack_require__(/*! ./cookies */ \"./utils/cookies.js\");\n\nvar _storage = __webpack_require__(/*! ./storage */ \"./utils/storage.js\");\n\nvar _lodash = __webpack_require__(/*! ./lodash */ \"./utils/lodash.js\");\n\nvar _description = __webpack_require__(/*! ./description */ \"./utils/description.js\");\n\nvar _date = __webpack_require__(/*! ./date */ \"./utils/date.js\");\n\n//# sourceURL=webpack:///./utils/index.js?");
+
+/***/ }),
+
+/***/ "./utils/lodash.js":
+/*!*************************!*\
+  !*** ./utils/lodash.js ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nvar _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ \"./node_modules/@babel/runtime/helpers/interopRequireDefault.js\");\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports._noop = exports._isEmpty = void 0;\n\nvar _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ \"./node_modules/@babel/runtime/helpers/typeof.js\"));\n\nvar _isEmpty = function _isEmpty(obj) {\n  if (!obj) return true;\n  if (Array.isArray(obj) && !obj.length) return true;\n  if ((0, _typeof2[\"default\"])(obj) === 'object' && !Object.keys(obj).length) return true;\n  return false;\n};\n\nexports._isEmpty = _isEmpty;\n\nvar _noop = function _noop() {\n  return false;\n};\n\nexports._noop = _noop;\n\n//# sourceURL=webpack:///./utils/lodash.js?");
+
+/***/ }),
+
+/***/ "./utils/storage.js":
+/*!**************************!*\
+  !*** ./utils/storage.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nvar _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ \"./node_modules/@babel/runtime/helpers/interopRequireDefault.js\");\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.setStorage = exports.getStorage = void 0;\n\nvar _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ \"./node_modules/@babel/runtime/helpers/defineProperty.js\"));\n\nfunction ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }\n\nfunction _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2[\"default\"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }\n\nvar getStorage = function getStorage(name) {\n  var wWidgets = JSON.parse(localStorage.getItem('w_widgets') || '{}');\n  return name ? wWidgets[name] : wWidgets;\n};\n\nexports.getStorage = getStorage;\n\nvar setStorage = function setStorage(name, value) {\n  var wWidgets = getStorage();\n  var storageValue = JSON.stringify(name ? _objectSpread(_objectSpread({}, wWidgets), {}, (0, _defineProperty2[\"default\"])({}, name, value)) : value);\n  localStorage.setItem('w_widgets', storageValue);\n};\n\nexports.setStorage = setStorage;\n\n//# sourceURL=webpack:///./utils/storage.js?");
 
 /***/ })
 

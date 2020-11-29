@@ -1,7 +1,12 @@
+import fs from 'fs';
+import shortId from 'short-id';
+import path from 'path';
 import axios from 'axios';
+import shell from "shelljs";
 import cheerio from 'cheerio';
 import { permissionDeniedError } from "../utils";
 import { Domain, Client, Styles } from "../models";
+import { config } from '../config';
 
 export const getAuthToken = (headers) => (
   headers.authorization && headers.authorization.replace('Bearer', '').trim()
@@ -56,4 +61,20 @@ export const getFavicon = async (url) => {
   } catch (e) {
     return '';
   }
+};
+
+export const handleSaveFiles = async (files = [], customPath = '', isGenerate = true, withDelete = false) => {
+  const { uploads: { uploadPath } } = config;
+  
+  return Promise.all(files.map(({ name, stream, filename }) => {
+    const ext = filename.split('.').reverse()[0];
+    const currentFileName = isGenerate ? shortId.generate() : name;
+    const currentUploadPath = path.join(uploadPath, customPath);
+    if (withDelete) {
+      shell.rm('-rf', `${currentUploadPath}/${currentFileName}.*`);
+    }
+    shell.mkdir('-p', currentUploadPath);
+    const ws = fs.createWriteStream(`${currentUploadPath}/${currentFileName}.${ext}`);
+    return stream.pipe(ws);
+  }));
 };

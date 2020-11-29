@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getStorage } from 'utils';
 
 import { socket } from '../Socket/socketEvents';
 import { ChatClosed } from '../ChatClosed/ChatClosed';
@@ -17,10 +18,10 @@ export const ChatForm = ({ lang }) => {
   };
 
   useEffect(() => {
-    const { origin, user } = window.W_widgets;
+    const { origin, userId } = getStorage();
     socket.on('connect', () => {
-      socket.emit('user_connect', { userID: user, origin });
-      socket.emit('get_admin_connected', { userID: user, origin });
+      socket.emit('user_connect', { userID: userId, origin });
+      socket.emit('get_admin_connected', { userID: userId, origin });
       //
       socket.on(`admin_connected_${origin}`, adminSocketID => {
         setState(prev => ({ ...prev, adminsConnected: adminSocketID }));

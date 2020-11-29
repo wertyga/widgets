@@ -1,9 +1,11 @@
 import express from 'express';
-import { checkClientCredentials, isClientOwnerDomain } from 'server/middlewares';
-import { noValidDataError, clearDomain, permissionDeniedError } from 'server/utils';
+import _isEmpty from 'lodash/isEmpty';
+import { checkClientCredentials, isClientOwnerDomain, withFilesMiddleware } from 'server/middlewares';
+import { noValidDataError, clearDomain, permissionDeniedError, getWithNumbers } from 'server/utils';
 import { Domain } from 'server/models';
-import { gfErrors } from 'server/config';
-import { getFavicon } from '../../helpers';
+import { gfErrors, config } from 'server/config';
+
+import { getFavicon, handleSaveFiles } from '../../helpers';
 
 export const adminDomainsRouter = express.Router();
 
@@ -76,28 +78,45 @@ adminDomainsRouter.delete('/', checkClientCredentials, isClientOwnerDomain, asyn
   }
 });
 
-adminDomainsRouter.post('/settings', checkClientCredentials, async (
+adminDomainsRouter.post('/settings/:service/:id', checkClientCredentials, withFilesMiddleware, async (
   {
-    body: { service, settings, id },
+    params: { service, id },
     query: { lang },
     client,
+    fields,
+    files,
   },
   res,
  ) => {
   try {
-    if (!service || !settings) throw noValidDataError(lang);
-
+    if (!fields || _isEmpty(fields)) throw noValidDataError(lang);
+  
     const domain = await Domain.findOne({ owner: client._id, _id: id });
-
     if (!domain) throw permissionDeniedError(lang);
+    
+    const partUploadPath = `${service}/${id}`;
+    const savedFiles = await handleSaveFiles(files, partUploadPath, false, true);
+    
+    const uploadFiles = savedFiles.reduce((init, { path }, i) => {
+      const key = files[i].name;
+      const value = path.replace(config.uploads.uploadPath, '');
+      
+      return { ...init, [key]: value };
+    }, {});
+    
     domain.settings = {
       ...domain.settings,
-      [service]: settings,
-    }
+      [service]: {
+        ...domain.settings[service],
+        ...getWithNumbers(fields),
+        ...uploadFiles,
+      },
+    };
     const updatedDomain = await domain.save();
-
+    
     res.json(Domain.domainFields(updatedDomain));
   } catch (e) {
+    console.log(e);
     res.status(e.status || 500).json({ message: e.message });
   }
 });
