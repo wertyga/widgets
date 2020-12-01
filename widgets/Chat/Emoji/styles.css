@@ -1,0 +1,7 @@
+.w-widgets .emoji {
+  display: none;
+}
+
+.w-widgets .emoji.mounted {
+  display: flex;
+}

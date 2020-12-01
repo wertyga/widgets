@@ -1,6 +1,7 @@
 import { getStorage } from 'utils';
 import { Input } from "widgets/components";
 import { ChatSubmitBtn } from '../ChatSubmitBtn/ChatSubmitBtn';
+import { Emoji } from '../Emoji/Emoji';
 
 import { socket } from '../Socket/socketEvents';
 
@@ -43,18 +44,27 @@ export class ChatInputField extends React.Component {
     this.props.onMessage(this.state.value);
     this.setState({ value: '' });
   }
+  
+  handleEmojiSelect = (emoji) => {
+    this.setState({ value: `${this.state.value}${emoji}` });
+  }
 
   render() {
     return (
-      <div className="cht-inf">
-        <Input
-          value={this.state.value}
-          onChange={this.onChange}
-          className="pb-4"
-          textarea
-        />
-        <ChatSubmitBtn
-          onSubmit={this.onSend}
+      <div className="cht-inf flex-column">
+        <div className="d-flex align-center w-100">
+          <Input
+            value={this.state.value}
+            onChange={this.onChange}
+            className="pb-4"
+            textarea
+          />
+          <ChatSubmitBtn
+            onSubmit={this.onSend}
+          />
+          </div>
+        <Emoji
+          onSelect={this.handleEmojiSelect}
         />
       </div>
     );
