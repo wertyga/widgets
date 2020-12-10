@@ -4,7 +4,7 @@ import { Button } from "../../components";
 
 export const UserRegisteredModal = ({ user = {}, onPublish, lang, dropUser }) => {
   const { name, avatar } = user;
-  const image = avatar || `${config.serverUrl}/static/anonym.png`;
+  const image = avatar || `${process.env.SERVER_HOST}/static/anonym.png`;
 
   return (
     <div className="justify-between w-rg-usr-wr">

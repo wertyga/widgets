@@ -1,7 +1,5 @@
 import { Image } from "widgets/components/Image/Image";
 
-import { config } from "widgets/config/config";
-
 export const ReviewItemImages = ({ images }) => {
   return (
     <div className="d-flex w-100">

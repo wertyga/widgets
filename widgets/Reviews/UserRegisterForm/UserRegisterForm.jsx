@@ -35,7 +35,7 @@ export const UserRegisterForm = ({ onChange, errors: propsErrors = {}, propUser,
   return (
     <div className="w-usr-rg d-flex">
       <a href="https://gravatar.com/" target="__blank">
-        <img className="mr-4 avatar" src={`${config.serverUrl}/static/anonym.png`} />
+        <img className="mr-4 avatar" src={`${process.env.SERVER_HOST}/static/anonym.png`} />
       </a>
 
       <div className="w-usr-rg__inf">

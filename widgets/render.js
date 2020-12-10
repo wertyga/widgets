@@ -1,5 +1,4 @@
 import shortID from 'short-id';
-import { config } from './config/config';
 import { getStorage, setStorage } from '../utils';
 
 function injectFont() {
@@ -26,8 +25,6 @@ function defineBootstrap () {
   const clearableScripts = document.querySelectorAll('[w-data="clearable"]');
   clearableScripts.forEach(script => document.body.removeChild(script));
   window.W_widgets = {
-    // ...window.W_widgets,
-    // user: userIDCookie,
     bootstrap: function() { bootstrap(window.location.href) },
   };
 };
@@ -62,7 +59,6 @@ function fetchScript(script) {
 
 function injectScripts({ scripts, css, addingStyles, settings }) {
   setStorage('settings', settings);
-  // window.W_widgets.settings = settings;
   if (css && css.length) {
     Promise.all(css.map(cssUrl => fetchCss(cssUrl)));
   }
@@ -92,7 +88,7 @@ function bootstrap(href) {
   }
 
   if (!ids.length) return;
-  return fetch(`${config.serverUrl}/main`, {
+  return fetch(`${process.env.SERVER_HOST}/main`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',

@@ -5,7 +5,7 @@ export const fetchReviews = ({ href, page, offset }) => {
   return (
     axios({
       method: 'get',
-      url: `${config.apiGateway}/reviews/get`,
+      url: `${process.env.API_GATEWAY}/reviews/get`,
       params: {
         href,
         page,
@@ -18,7 +18,7 @@ export const fetchReviews = ({ href, page, offset }) => {
 export const fetchSubReview = (commentId, text, user) => (
   axios({
     method: 'post',
-    url: `${config.apiGateway}/reviews/subreview`,
+    url: `${process.env.API_GATEWAY}/reviews/subreview`,
     data: {
       commentId,
       text,
@@ -30,7 +30,7 @@ export const fetchSubReview = (commentId, text, user) => (
 export const fetchLike = (_id, type) => (
   axios({
     method: 'post',
-    url: `${config.apiGateway}/reviews/like`,
+    url: `${process.env.API_GATEWAY}/reviews/like`,
     data: {
       _id,
       type,
@@ -49,7 +49,7 @@ export const uploadData = async ({ images, ...rest }) => {
 
   try {
     const { data } = await axios({
-      url: `${config.apiGateway}/reviews/post`,
+      url: `${process.env.API_GATEWAY}/reviews/post`,
       method: 'post',
       data: formData,
     });

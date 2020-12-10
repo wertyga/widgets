@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const envs = require('./envs');
+const envs = require('../server/config/envs');
 const { config } = require('../server/config/config');
 
 const collectEnvsContent = (cssFileNames, jsFileNames) => {

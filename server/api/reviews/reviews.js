@@ -7,7 +7,7 @@ import { reviewCredentials } from '../../middlewares/credentials';
 export const reviewRouter = express.Router();
 
 reviewRouter.get('/get', reviewCredentials, async (req, res) => {
-  const { query: { href, offset }, userDomain } = req;
+  const { query: { href, offset } } = req;
   try {
     const from = parseInt(offset);
 

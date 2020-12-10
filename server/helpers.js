@@ -3,9 +3,8 @@ import { getAddingStyles } from './styles/helpers';
 import { gfServices } from './goldfish';
 
 export const getSrcs = (services, domain, lang, styles) => {
-  const serverHost = `${process.env.SERVERHOST}:${process.env.PORT}`;
   const scripts = [];
-  const css = [{ href: `${serverHost}/css/common.css`, service: 'common' }];
+  const css = [{ href: `${process.env.SERVER_HOST}/css/common.css`, service: 'common' }];
   const addingStyles = {};
 
   services.forEach(service => {
@@ -14,11 +13,11 @@ export const getSrcs = (services, domain, lang, styles) => {
       const clearName = service.split('_')[0];
 
       css.push({
-        href: `${serverHost}/${process.env[`CSS_${clearName.toUpperCase()}`]}`,
+        href: `${process.env.SERVER_HOST}/${process.env[`CSS_${clearName.toUpperCase()}`]}`,
         service,
       });
       scripts.push({
-        filename: `${serverHost}/${process.env[`JS_${service.toUpperCase()}_${lang.toUpperCase()}`]}`,
+        filename: `${process.env.SERVER_HOST}/${process.env[`JS_${service.toUpperCase()}_${lang.toUpperCase()}`]}`,
         type: gfServices.servicesMeta[service].type,
       });
 

@@ -17,6 +17,6 @@ export const getChatMeta = () => {
     supportName,
     supportPosition,
     supportGreeting,
-    supportAvatar: `${config.serverUrl}${supportAvatar}`,
+    supportAvatar: `${process.env.SERVER_HOST}${supportAvatar}`,
   };
 };

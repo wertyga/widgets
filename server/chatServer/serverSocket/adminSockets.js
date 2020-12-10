@@ -1,7 +1,6 @@
-import _isEmpty from 'lodash/isEmpty';
 import _flatten from 'lodash/flatten';
 import { getRedisKey, setRedisKey } from '../redis/initializeRedis';
-import {keys} from "./helpers";
+import { keys } from "./helpers";
 
 export const getConnectedUsers = async (origins = [], socket) => {
   const users = await Promise.all(

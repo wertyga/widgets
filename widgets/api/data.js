@@ -14,7 +14,7 @@ export const uploadData = async ({ images, ...rest }) => {
 
   try {
     const { data } = await axios({
-      url: `${config.apiGateway}/reviews/post`,
+      url: `${process.env.API_GATEWAY}/reviews/post`,
       method: 'post',
       headers: {
         'Authorization': `Bearer ${token}`,

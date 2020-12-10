@@ -6,6 +6,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 const { widgetsEntries } = require('./helpers');
 const GenerateHashEnv = require('./generateENVs');
+const envs = require('../server/config/envs');
 
 const browserConfig = {
   entry: {
@@ -65,10 +66,6 @@ const browserConfig = {
         return filepathHash.replace('.css', `_${clearName}.css`);
       },
     }),
-    new webpack.ProvidePlugin({
-      'React': 'react',
-      "PropTypes": "prop-types"
-    }),
     new CopyPlugin({
       patterns: [
         { from: path.join(process.cwd(), 'static'), to: path.join(process.cwd(), 'public/static') },
@@ -79,6 +76,13 @@ const browserConfig = {
       ],
     }),
     new GenerateHashEnv(),
+    new webpack.ProvidePlugin({
+      'React': 'react',
+      "PropTypes": "prop-types"
+    }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(envs),
+    }),
   ],
 
   resolve: {
@@ -125,10 +129,9 @@ const serverConfig = {
   },
 
   plugins: [
-    new webpack.ProvidePlugin({
-      'React': 'react',
-      "PropTypes": "prop-types"
-    })
+    new webpack.DefinePlugin({
+      'process.env': envs,
+    }),
   ],
 
   resolve: {

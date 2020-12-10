@@ -57,6 +57,8 @@ export const getFavicon = async (url) => {
     $('link[rel="icon"]').attr('href') ||
     $('link[rel="shortcut icon"]').attr('href');
     const prefix = /https|http/.test(href) ? '' : url;
+    if (!href) return '';
+    
     return `${prefix}${href}`;
   } catch (e) {
     return '';

@@ -4,7 +4,7 @@ import { _isEmpty } from '../../../utils';
 import { config } from "../../config/config";
 
 const defaultGravatar = 'https://www.gravatar.com/avatar/bdb60e051b5eb59ad2a537bce0868159';
-const anonymAvatar = `${config.serverUrl}/static/anonym.png`;
+const anonymAvatar = `${process.env.SERVER_HOST}/static/anonym.png`;
 
 const checkEmail = email => /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(email);
 

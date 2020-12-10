@@ -15,7 +15,11 @@ export const ReviewListItem = ({
                                  lang, currentUser, onCommentSubmit,
                                  toggleOpen, isOpen, subComment,
                                ...props }) => {
-  const [state, setState] = useState({ ...props, subOpen: !!subComment && !!subComment.length, pending: false });
+  const [state, setState] = useState({
+    ...props,
+    subOpen: !!subComment && !!subComment.length,
+    pending: false,
+  });
 
   const handleLike = async (type) => {
     if (state.pending) return;

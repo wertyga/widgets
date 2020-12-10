@@ -65,7 +65,7 @@ reviewSchema.virtual('responseKeys')
       ...rest,
       like: rest.like.length,
       dislike: rest.dislike.length,
-      images: rest.images.map(image => `${config.serverAddress}${image}`),
+      images: rest.images.map(image => `${process.env.SERVER_HOST}${image}`),
     };
   })
   .set(function() { return });
