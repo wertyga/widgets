@@ -1,5 +1,8 @@
 const app = require('express')();
 const server = require('http').createServer(app);
+const dotenv = require('dotenv');
+
+dotenv.config();
 const initializeEvents = require('./serverSocket/serverSocket');
 require('./redis/initializeRedis');
 
