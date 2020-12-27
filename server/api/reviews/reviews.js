@@ -40,9 +40,10 @@ reviewRouter.get('/get', reviewCredentials, async (req, res) => {
 
 reviewRouter.post('/post', reviewCredentials, async (req, res) => {
   try {
-    await uploadReview({ req, res });
+    const review = await uploadReview(req);
+    res.json(review);
   } catch (e) {
-    res.status(e.status || 500).json({ global: e.message });
+    res.status(e.status || 500).json(e.error);
   }
 });
 

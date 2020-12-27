@@ -83,50 +83,54 @@ const checkRequireFields = (fields, lang) => {
   };
 };
 
-export const uploadReview = ({ req, res }) => {
-  parseFormData(req, async function (err, data) {
-    const { client, lang } = req;
-    try {
-      if (err) {
-        logger.error(err, 'uploadReview');
-        throw err;
-      }
+export const uploadReview = (req) => {
+  return new Promise((resolve, reject) => {
+    parseFormData(req, async function (err, data) {
+      const { client, lang } = req;
+      try {
+        if (err) {
+          logger.error(err, 'uploadReview');
+          throw err;
+        }
       
-      logger.info(data, 'uploadReview');
-
-      const { isValid, errors, data: fields } = checkRequireFields(data.fields, lang);
-      if (!isValid) return res.status(400).json(errors);
-
-      const { origin, settings: { reviews: { preEdit } = {} } = {} } = req.userDomain;
-      const review = await new Review({
+        logger.info(data, 'uploadReview');
+      
+        const { isValid, errors, data: fields } = checkRequireFields(data.fields, lang);
+        if (!isValid) {
+          reject({ error: errors, status: 400 });
+          return;
+        }
+      
+        const { origin, settings: { reviews: { preEdit } = {} } = {} } = req.userDomain;
+        const review = await new Review({
           ...fields,
           owner: client._id,
           origin,
           allowed: !preEdit,
-       }).save();
-      review.images = await saveReviewImages(data.parts, client, review);
-
-      const [reviews, updatedReview] = await Promise.all([
-        Review.find({ href: review.href, allowed: true }, 'rating'),
-        !!review.images.length ? review.save() : review,
-      ]);
-  
-      logger.info(data, 'uploadReview');
-      const totalRating = calculateTotalRating(reviews);
-      res.json({
-        review: {
-          ...updatedReview.responseKeys,
-          like: updatedReview.like.length,
-          dislike: updatedReview.dislike.length,
-          commonRating: calculateCommonRating(totalRating),
-          preEdit,
-        },
-        totalCount: reviews.length,
-        totalRating,
-      });
-    } catch (e) {
-      logger.error(err, 'catch-uploadReview');
-      res.status(e.status || 500).json({ global: e.message });
-    }
+        }).save();
+        review.images = await saveReviewImages(data.parts, client, review);
+      
+        const [reviews, updatedReview] = await Promise.all([
+          Review.find({ href: review.href, allowed: true }, 'rating'),
+          !!review.images.length ? review.save() : review,
+        ]);
+      
+        const totalRating = calculateTotalRating(reviews);
+        resolve({
+          review: {
+            ...updatedReview.responseKeys,
+            like: updatedReview.like.length,
+            dislike: updatedReview.dislike.length,
+            commonRating: calculateCommonRating(totalRating),
+            preEdit,
+          },
+          totalCount: reviews.length,
+          totalRating,
+        });
+      } catch (e) {
+        logger.error(err, 'catch-uploadReview');
+        reject({ error: { global: e.message }, status: e.status || 500 });
+      }
+    })
   })
 };
