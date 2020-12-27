@@ -88,7 +88,7 @@ const checkRequireFields = (fields, lang) => {
   };
 };
 
-const getDataFromFormData = (req) => {
+export const getDataFromFormData = (req) => {
   return new Promise((resolve, reject) => {
     parseFormData(req, function (err, data) {
       const { lang } = req;
