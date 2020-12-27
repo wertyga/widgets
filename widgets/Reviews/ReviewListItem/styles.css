@@ -8,6 +8,7 @@
 
 .w-widgets .w-rv-lti__img {
   width: 20%;
+  min-width: 12rem;
 }
 .w-widgets .w-rv-lti__img img {
   box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
