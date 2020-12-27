@@ -47,7 +47,7 @@ function fetchScript(script) {
   const [_, service] = filename.match(/_(\w+)_\w+.js/);
   const id = `w-${service}-script`;
   const existScript = document.getElementById(id);
-  if (existScript && type === 'reload') {
+  if (existScript) {
     document.body.removeChild(existScript);
   }
   const scriptTag = document.createElement('script');
