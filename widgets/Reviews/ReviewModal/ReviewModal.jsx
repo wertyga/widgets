@@ -85,7 +85,7 @@ export const ReviewModal = ({ onClose, onSubmit, user: propUser, lang, message }
         {message && <p className="w-100 ta-c font-light">{message}</p>}
 
         <div className="mb-4 w-rv-md__c__hd">
-          <p>{common.value[lang]}</p>
+          <p className="mt-2 mb-2 font-size-md">{common.value[lang]}</p>
           <StarsReview onChange={handleEstimate} error={stateErrors.rating} className="d-i-flex-i" />
         </div>
         <span onClick={onClose} className="w-rv-md-ci">×</span>

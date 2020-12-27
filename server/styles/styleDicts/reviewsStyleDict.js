@@ -87,17 +87,16 @@ export const reviewsStyleDict = {
   },
   subCommentBtn: {
     backgroundColor: {
-      selector: ['.w-rv-il__cm__btn-wrp .w-btn', '.w-rf__lay-rv-btn .w-btn', '.w-rg-usr-wr .w-btn'],
-      propName: ['background-color', 'background-color', 'background-color'],
+      selector: ['.w-rv-il__cm__btn-wrp .w-btn', '.w-rf__lay-rv-btn .w-btn'],
+      propName: ['background-color', 'background-color'],
     },
     color: {
       selector: [
         '.w-rv-il__cm__btn-wrp .w-btn',
         '.w-rf__lay-rv-btn .w-btn',
         '.w-rf__lay-rv-btn .w-btn svg path',
-        '.w-rg-usr-wr .w-btn'
       ],
-      propName: ['color', 'color', 'fill', 'color'],
+      propName: ['color', 'color', 'fill'],
     },
   },
   totalReviews: {
