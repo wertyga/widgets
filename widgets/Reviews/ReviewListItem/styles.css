@@ -76,9 +76,6 @@
   width: 1.5rem;
   height: 1.5rem;
 }
-.w-widgets .w-rv-il__sub-it svg path {
-  fill: var(--color-grey-1);
-}
 .w-widgets .w-rv-il__sub-it svg {
   margin-top: 1px;
 }
