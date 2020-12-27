@@ -3,6 +3,7 @@ import path from 'path';
 import shortID from 'short-id';
 import shell from 'shelljs';
 import parseFormData from 'parse-formdata';
+import { logger } from 'server/utils/logger';
 
 import _isEmpty from 'lodash/isEmpty';
 
@@ -86,7 +87,12 @@ export const uploadReview = ({ req, res }) => {
   parseFormData(req, async function (err, data) {
     const { client, lang } = req;
     try {
-      if (err) throw err;
+      if (err) {
+        logger.error(err, 'uploadReview');
+        throw err;
+      }
+      
+      logger.info(data, 'uploadReview');
 
       const { isValid, errors, data: fields } = checkRequireFields(data.fields, lang);
       if (!isValid) return res.status(400).json(errors);
@@ -100,17 +106,18 @@ export const uploadReview = ({ req, res }) => {
        }).save();
       review.images = await saveReviewImages(data.parts, client, review);
 
-      const [reviews, updatedreview] = await Promise.all([
+      const [reviews, updatedReview] = await Promise.all([
         Review.find({ href: review.href, allowed: true }, 'rating'),
         !!review.images.length ? review.save() : review,
       ]);
-
+  
+      logger.info(data, 'uploadReview');
       const totalRating = calculateTotalRating(reviews);
       res.json({
         review: {
-          ...updatedreview.responseKeys,
-          like: updatedreview.like.length,
-          dislike: updatedreview.dislike.length,
+          ...updatedReview.responseKeys,
+          like: updatedReview.like.length,
+          dislike: updatedReview.dislike.length,
           commonRating: calculateCommonRating(totalRating),
           preEdit,
         },
@@ -118,7 +125,7 @@ export const uploadReview = ({ req, res }) => {
         totalRating,
       });
     } catch (e) {
-      console.log(e)
+      logger.error(err, 'catch-uploadReview');
       res.status(e.status || 500).json({ global: e.message });
     }
   })
