@@ -12,13 +12,13 @@ reviewRouter.get('/get', reviewCredentials, async (req, res) => {
   try {
     const from = parseInt(offset);
 
-    const [reviews, totalCount] = await Promise.all([
+    const [reviews, totalReviews] = await Promise.all([
       Review.find({ href, allowed: true })
         .skip(from)
         .limit(REVIEWS_LIMIT)
         .sort({ createdAt: -1 })
         .populate('subComment', ['text', 'user', 'createdAt']),
-      Review.find({ href, allowed: true }).count(),
+      Review.find({ href, allowed: true }, 'rating'),
     ]);
 
     const editedReviews =
@@ -27,12 +27,11 @@ reviewRouter.get('/get', reviewCredentials, async (req, res) => {
         like: review.like.length,
         dislike: review.dislike.length,
     }));
-    // const totalRating = calculateTotalRating(reviews);
-    const { commonRating, totalRating } = calculateRating(reviews);
+    const { commonRating, totalRating } = calculateRating(totalReviews);
     res.json({
       reviews: editedReviews,
       commonRating,
-      totalCount,
+      totalCount: totalReviews.length,
       totalRating,
     });
   } catch (e) {

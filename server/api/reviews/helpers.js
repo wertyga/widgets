@@ -22,6 +22,7 @@ const createUploadDirectory = (client, domain) => {
 };
 
 export const calculateTotalRating = (reviews) => {
+  console.log('calculateTotalRating: ', reviews);
   const defaultRating = {
     1: 0,
     2: 0,
@@ -31,14 +32,15 @@ export const calculateTotalRating = (reviews) => {
   };
   return reviews.reduce((init, { rating }) => ({
     ...init,
-    [rating]: (init.rating || 0) + 1,
+    [rating]: init[rating] + 1,
   }), defaultRating)
 };
 
 export const calculateRating = (reviews) => {
   let totalCount = 0;
   let totalSum = 0;
-  const totalRating = calculateTotalRating(reviews);
+  const formattedReviews = reviews.map(({ _doc }) => _doc);
+  const totalRating = calculateTotalRating(formattedReviews);
   Object.entries(totalRating).forEach(([rating, count]) => {
     totalCount += count;
     totalSum += rating * count;
@@ -87,55 +89,58 @@ const checkRequireFields = (fields, lang) => {
   };
 };
 
-export const uploadReview = (req) => {
+const getDataFromFormData = (req) => {
   return new Promise((resolve, reject) => {
-    parseFormData(req, async function (err, data) {
-      const { client, lang } = req;
-      try {
-        if (err) {
-          logger.error(err, 'uploadReview');
-          throw err;
-        }
-      
-        logger.info(data, 'uploadReview');
-      
-        const { isValid, errors, data: fields } = checkRequireFields(data.fields, lang);
-        if (!isValid) {
-          reject({ error: errors, status: 400 });
-          return;
-        }
-      
-        const { origin, settings: { reviews: { preEdit } = {} } = {} } = req.userDomain;
-        const review = await new Review({
-          ...fields,
-          owner: client._id,
-          origin,
-          allowed: !preEdit,
-        }).save();
-        review.images = await saveReviewImages(data.parts, client, review);
-      
-        const [reviews, updatedReview] = await Promise.all([
-          Review.find({ href: review.href, allowed: true }, 'rating'),
-          !!review.images.length ? review.save() : review,
-        ]);
-      
-        // const totalRating = calculateTotalRating(reviews);
-        const { commonRating, totalRating } = calculateRating(reviews);
-        resolve({
-          review: {
-            ...updatedReview.responseKeys,
-            like: updatedReview.like.length,
-            dislike: updatedReview.dislike.length,
-            commonRating,
-            preEdit,
-          },
-          totalCount: reviews.length,
-          totalRating,
-        });
-      } catch (e) {
-        logger.error(e, 'catch-uploadReview');
-        reject({ error: { global: e.message }, status: e.status || 500 });
+    parseFormData(req, function (err, data) {
+      const { lang } = req;
+      const { isValid, errors, data: fields } = checkRequireFields(data.fields, lang);
+      if (err) {
+        reject({ error: err });
       }
-    })
-  })
+      if (!isValid) {
+        reject({ error: errors, status: 400 });
+      }
+      
+      resolve({ fields, parts: data.parts });
+    });
+  });
+};
+
+export const uploadReview = async (req) => {
+  try {
+    const { fields, parts } = await getDataFromFormData(req);
+    const { client } = req;
+  
+    const { origin, settings: { reviews: { preEdit } = {} } = {} } = req.userDomain;
+    const review = await new Review({
+      ...fields,
+      owner: client._id,
+      origin,
+      allowed: !preEdit,
+    }).save();
+    if (parts.length) {
+      review.images = await saveReviewImages(parts, client, review);
+    }
+    const [reviews, updatedReview] = await Promise.all([
+      Review.find({ href: review.href, allowed: true }, 'rating'),
+      !!review.images.length ? review.save() : review,
+    ]);
+    
+    const { commonRating, totalRating } = calculateRating(reviews);
+    return {
+      review: {
+        ...updatedReview.responseKeys,
+        like: updatedReview.like.length,
+        dislike: updatedReview.dislike.length,
+        commonRating,
+        preEdit,
+      },
+      totalCount: reviews.length,
+      totalRating,
+    };
+  } catch (e) {
+    console.log(e);
+    logger.error(e, 'catch-uploadReview');
+    throw { error: { global: e.message }, status: e.status || 500 };
+  }
 };

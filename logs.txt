@@ -1,9 +1,29 @@
-12/27/2020 - INFO - uploadReview - {
-  "epilogue": [],
-  "preamble": [],
-  "fields": {
-    "reviewsData": "{\"advantages\":\"eqwe\",\"disAdvantages\":\"e\",\"comments\":\"e\",\"user\":{\"name\":\"wertyga\",\"email\":\"wertyga18@gmail.com\",\"avatar\":\"https://www.gravatar.com/avatar/2cc4619d1411c9122ef200798c7935f1?s=50\"},\"rating\":5,\"href\":\"http://localhost:8000/reviews\",\"origin\":\"http://localhost:8000\"}"
-  },
-  "parts": []
-}
+
+12/27/2020 - INFO - reviewRouter.post
+
+12/27/2020 - ERROR - catch-uploadReview - {}
+
+12/27/2020 - INFO - reviewRouter.post
+
+12/27/2020 - ERROR - catch-uploadReview - {}
+
+12/27/2020 - INFO - reviewRouter.post
+
+12/27/2020 - ERROR - catch-uploadReview - {}
+
+12/27/2020 - INFO - reviewRouter.post
+
+12/27/2020 - ERROR - catch-uploadReview - {}
+
+12/27/2020 - INFO - reviewRouter.post
+
+12/27/2020 - ERROR - catch-uploadReview - {}
+
+12/27/2020 - INFO - reviewRouter.post
+
+12/27/2020 - INFO - reviewRouter.post
+
+12/27/2020 - INFO - reviewRouter.post
+
+12/27/2020 - INFO - reviewRouter.post
 
