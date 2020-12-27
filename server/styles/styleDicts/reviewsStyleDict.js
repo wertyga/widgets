@@ -67,8 +67,8 @@ export const reviewsStyleDict = {
   },
   mainBlock: {
     backgroundColor: {
-      selector: ['.w-rv-lti', '.w-rv-md__c', '.w-rv-md__c input, .w-rv-md__c textarea'],
-      propName: ['background-color', 'background-color', 'background-color'],
+      selector: ['.w-rv-lti'],
+      propName: ['background-color'],
     },
     borderColor: {
       selector: '.w-rv-lti',
