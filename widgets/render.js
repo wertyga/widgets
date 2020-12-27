@@ -53,7 +53,7 @@ function fetchScript(script) {
   const scriptTag = document.createElement('script');
   scriptTag.id = id;
   scriptTag.src = filename;
-  scriptTag.defer = true;
+  scriptTag.async = true;
   document.body.appendChild(scriptTag);
 };
 
