@@ -128,7 +128,7 @@ export const uploadReview = (req) => {
           totalRating,
         });
       } catch (e) {
-        logger.error(err, 'catch-uploadReview');
+        logger.error(e, 'catch-uploadReview');
         reject({ error: { global: e.message }, status: e.status || 500 });
       }
     })

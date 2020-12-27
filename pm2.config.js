@@ -13,13 +13,22 @@ module.exports = {
       },
     },
     {
-      name: "widgets-http",
+      name: "widgets-http-DEV",
       cwd: "./apps/widgets/widgets",
-      script: './public/server/index.js',
+      script: 'npm',
+      args: 'server:dev:test',
       env: {
         "NODE_ENV": "production",
       },
     },
+    // {
+    //   name: "widgets-http",
+    //   cwd: "./apps/widgets/widgets",
+    //   script: './public/server/index.js',
+    //   env: {
+    //     "NODE_ENV": "production",
+    //   },
+    // },
     {
       name: "widgets-socket",
       cwd: "./apps/widgets/widgets",
