@@ -21,17 +21,6 @@ const createUploadDirectory = (client, domain) => {
   shell.mkdir('-p', uploadDirectory);
 };
 
-export const calculateCommonRating = (totalRating) => {
-  let totalCount = 0;
-  let totalSum = 0;
-  Object.entries(totalRating).forEach(([rating, count]) => {
-    totalCount += count;
-    totalSum += rating * count;
-  });
-
-  return Number((totalSum / totalCount).toFixed(1)) || 0;
-};
-
 export const calculateTotalRating = (reviews) => {
   const defaultRating = {
     1: 0,
@@ -44,6 +33,21 @@ export const calculateTotalRating = (reviews) => {
     ...init,
     [rating]: (init.rating || 0) + 1,
   }), defaultRating)
+};
+
+export const calculateRating = (reviews) => {
+  let totalCount = 0;
+  let totalSum = 0;
+  const totalRating = calculateTotalRating(reviews);
+  Object.entries(totalRating).forEach(([rating, count]) => {
+    totalCount += count;
+    totalSum += rating * count;
+  });
+
+  return {
+    totalRating,
+    commonRating: Number((totalSum / totalCount).toFixed(1)) || 0,
+  };
 };
 
 const saveReviewImages = async (files, client, review) => {
@@ -115,13 +119,14 @@ export const uploadReview = (req) => {
           !!review.images.length ? review.save() : review,
         ]);
       
-        const totalRating = calculateTotalRating(reviews);
+        // const totalRating = calculateTotalRating(reviews);
+        const { commonRating, totalRating } = calculateRating(reviews);
         resolve({
           review: {
             ...updatedReview.responseKeys,
             like: updatedReview.like.length,
             dislike: updatedReview.dislike.length,
-            commonRating: calculateCommonRating(totalRating),
+            commonRating,
             preEdit,
           },
           totalCount: reviews.length,

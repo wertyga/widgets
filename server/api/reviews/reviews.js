@@ -1,6 +1,7 @@
 import express from 'express';
+import { logger } from 'server/utils/logger';
 
-import { uploadReview, calculateCommonRating, calculateTotalRating, REVIEWS_LIMIT } from './helpers';
+import { uploadReview, calculateRating, REVIEWS_LIMIT } from './helpers';
 import { Review, SubReview } from '../../models';
 import { reviewCredentials } from '../../middlewares/credentials';
 
@@ -26,10 +27,11 @@ reviewRouter.get('/get', reviewCredentials, async (req, res) => {
         like: review.like.length,
         dislike: review.dislike.length,
     }));
-    const totalRating = calculateTotalRating(reviews);
+    // const totalRating = calculateTotalRating(reviews);
+    const { commonRating, totalRating } = calculateRating(reviews);
     res.json({
       reviews: editedReviews,
-      commonRating: calculateCommonRating(totalRating),
+      commonRating,
       totalCount,
       totalRating,
     });
@@ -40,6 +42,7 @@ reviewRouter.get('/get', reviewCredentials, async (req, res) => {
 
 reviewRouter.post('/post', reviewCredentials, async (req, res) => {
   try {
+    logger.info('reviewRouter.post');
     const review = await uploadReview(req);
     res.json(review);
   } catch (e) {
