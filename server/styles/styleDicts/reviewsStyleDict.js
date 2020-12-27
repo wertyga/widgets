@@ -49,8 +49,8 @@ export const reviewsStyleDict = {
   },
   commentIcon: {
     color: {
-      selector: ['.w-rv-it__cm svg path', '.w-rv-it__cm span'],
-      propName: ['fill', 'color'],
+      selector: ['.w-rv-it__cm svg path', '.w-rv-it__cm span', 'w-rv-il__sub-it svg path'],
+      propName: ['fill', 'color', 'fill'],
     },
   },
   like: {

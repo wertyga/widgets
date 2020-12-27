@@ -72,7 +72,6 @@ export const ReviewsForm = ({ lang, user }) => {
         pending: false,
       }));
     } catch (e) {
-      console.log(e);
       setState(prev => ({ ...prev, pending: false, error: e.response.data.global }));
     }
   };

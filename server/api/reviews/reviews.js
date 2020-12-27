@@ -1,5 +1,4 @@
 import express from 'express';
-import { logger } from 'server/utils/logger';
 
 import { uploadReview, calculateRating, REVIEWS_LIMIT } from './helpers';
 import { Review, SubReview } from '../../models';
@@ -41,7 +40,6 @@ reviewRouter.get('/get', reviewCredentials, async (req, res) => {
 
 reviewRouter.post('/post', reviewCredentials, async (req, res) => {
   try {
-    logger.info('reviewRouter.post');
     const review = await uploadReview(req);
     res.json(review);
   } catch (e) {

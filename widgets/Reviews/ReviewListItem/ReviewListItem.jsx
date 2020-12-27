@@ -45,16 +45,19 @@ export const ReviewListItem = ({
           handleLike={handleLike}
           pending={state.pending}
           handleOpenComment={toggleOpen}
+          handleOpenSubComment={toggleOpenSubComment}
+          isShowSubComments={!!subComment.length}
+          isSubCommentsOpen={state.subOpen}
           lang={lang}
           {...state}
         />
-        {!!subComment.length &&
-          <ReviewItemToggleRoll
-            lang={lang}
-            isOpen={state.subOpen}
-            toggleOpen={toggleOpenSubComment}
-          />
-        }
+        {/*{!!subComment.length &&*/}
+        {/*  <ReviewItemToggleRoll*/}
+        {/*    lang={lang}*/}
+        {/*    isOpen={state.subOpen}*/}
+        {/*    toggleOpen={toggleOpenSubComment}*/}
+        {/*  />*/}
+        {/*}*/}
       </div>
 
       <ReviewListItemComment

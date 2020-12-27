@@ -1,29 +1,2 @@
 
-12/27/2020 - INFO - reviewRouter.post
-
-12/27/2020 - ERROR - catch-uploadReview - {}
-
-12/27/2020 - INFO - reviewRouter.post
-
-12/27/2020 - ERROR - catch-uploadReview - {}
-
-12/27/2020 - INFO - reviewRouter.post
-
-12/27/2020 - ERROR - catch-uploadReview - {}
-
-12/27/2020 - INFO - reviewRouter.post
-
-12/27/2020 - ERROR - catch-uploadReview - {}
-
-12/27/2020 - INFO - reviewRouter.post
-
-12/27/2020 - ERROR - catch-uploadReview - {}
-
-12/27/2020 - INFO - reviewRouter.post
-
-12/27/2020 - INFO - reviewRouter.post
-
-12/27/2020 - INFO - reviewRouter.post
-
-12/27/2020 - INFO - reviewRouter.post
 

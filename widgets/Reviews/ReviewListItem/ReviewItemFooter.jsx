@@ -1,8 +1,19 @@
 import classnames from 'classnames';
 import {Like, Dislike, Comment} from 'widgets/components/Icons';
 import { gfCommon } from '../goldfish';
+import {ReviewItemToggleRoll} from "./ReviewItemToggleRoll";
 
-export const ReviewItemFooter = ({ like = 0, dislike = 0, handleLike, pending, lang, handleOpenComment }) => {
+export const ReviewItemFooter = ({
+                                   like = 0,
+                                   dislike = 0,
+                                   handleLike,
+                                   pending,
+                                   lang,
+                                   handleOpenComment,
+                                   handleOpenSubComment,
+                                   isShowSubComments,
+                                   isSubCommentsOpen,
+                                 }) => {
   return (
     <div>
       <div className={classnames('align-center w-rv-it__f justify-between', { pending })}>
@@ -25,9 +36,19 @@ export const ReviewItemFooter = ({ like = 0, dislike = 0, handleLike, pending, l
           </span>
         </div>
 
-        <div onClick={handleOpenComment} className="w-rv-it__cm align-center">
-          <Comment className="mr-4" />
-          <span>{gfCommon.comments[lang]}</span>
+        <div className="align-center">
+          <div onClick={handleOpenComment} className="w-rv-it__cm align-center">
+            <Comment className="mr-4" />
+            <span>{gfCommon.comments[lang]}</span>
+          </div>
+          {isShowSubComments &&
+            <ReviewItemToggleRoll
+              lang={lang}
+              isOpen={isSubCommentsOpen}
+              toggleOpen={handleOpenSubComment}
+              className="ml-4"
+            />
+          }
         </div>
       </div>
     </div>

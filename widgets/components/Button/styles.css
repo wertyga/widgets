@@ -16,6 +16,5 @@
   color: grey;
 }
 .w-widgets .w-btn:hover:not(:disabled) {
-  transform: scale(1.05);
   box-shadow: none;
 }

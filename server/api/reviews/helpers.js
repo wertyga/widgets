@@ -22,7 +22,6 @@ const createUploadDirectory = (client, domain) => {
 };
 
 export const calculateTotalRating = (reviews) => {
-  console.log('calculateTotalRating: ', reviews);
   const defaultRating = {
     1: 0,
     2: 0,
