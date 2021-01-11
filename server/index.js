@@ -31,6 +31,10 @@ server.use(cors());
 server.use(express.static(path.join(process.cwd(), 'public'), staticOptions));
 server.use(express.static(config.uploads.uploadPath, staticOptions));
 
+server.get('/test', (req, res) => {
+  res.end('TEST SUCCEED');
+});
+
 server.use('/api', api);
 
 server.post('/main', async ({ body: { ids }, headers }, res) => {
