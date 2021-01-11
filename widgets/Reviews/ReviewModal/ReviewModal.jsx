@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import { common, errors } from 'widgets/config/lang';
 import { Input } from 'widgets/components';
 import { gfCommon } from '../goldfish';
@@ -79,7 +79,7 @@ export const ReviewModal = ({ onClose, onSubmit, user: propUser, lang, message }
   const { advantages, disAdvantages, comments, images, errors: stateErrors, user, loading } = state;
   return (
     <div className="w-rv-md">
-      <div className={classnames('w-rv-md__c', { 'w-loading': loading })}>
+      <div className={`w-rv-md__c ${ loading ? 'w-loading' : ''}`}>
 
         {stateErrors.global && <span className="error">{stateErrors.global}</span>}
         {message && <p className="w-100 ta-c font-light">{message}</p>}

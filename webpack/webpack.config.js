@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -83,6 +84,7 @@ const browserConfig = {
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(envs),
     }),
+    new BundleAnalyzerPlugin(),
   ],
 
   resolve: {

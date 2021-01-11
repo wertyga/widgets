@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { _isEmpty } from '../../../utils';
 
@@ -10,7 +10,7 @@ export const ImageReviewLoader = ({ onChange, children, className, errors = {}, 
   };
 
   return (
-    <div className={classnames('w-rv-img-upl', className)}>
+    <div className={`w-rv-img-upl ${className || ''}`}>
       {!_isEmpty(errors) &&
         <div className="w-rv-img-upl__er-wr flex-column">
           {Object.values(errors).map(value => <span key={value} className="w-rv-img-upl__er">{value}</span>)}

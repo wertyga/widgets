@@ -6,35 +6,26 @@ module.exports = {
       script: 'npm',
       args: 'run start',
       env: {
-        "NODE_ENV": "production",
+        NODE_ENV: "production",
       },
       env_production: {
         NODE_ENV: "production",
       },
     },
     {
-      name: "widgets-http-DEV",
+      name: "widgets-http",
       cwd: "./apps/widgets/widgets",
-      script: 'npm',
-      args: 'server:dev:test',
+      script: './public/server/index.js',
       env: {
-        "NODE_ENV": "production",
+        NODE_ENV: "production",
       },
     },
-    // {
-    //   name: "widgets-http",
-    //   cwd: "./apps/widgets/widgets",
-    //   script: './public/server/index.js',
-    //   env: {
-    //     "NODE_ENV": "production",
-    //   },
-    // },
     {
       name: "widgets-socket",
       cwd: "./apps/widgets/widgets",
       script: './public/server/chatServer/index.js',
       env: {
-        "NODE_ENV": "production",
+        NODE_ENV: "production",
       },
     },
   ]
